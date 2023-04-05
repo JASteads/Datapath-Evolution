@@ -21,7 +21,7 @@ public class InterfaceTool
     public static GameObject CanvasSetup(string name,
         Transform parentTF, out Canvas newCanvas)
     {
-        GameObject obj = new GameObject(name) { tag = "Canvas" };
+        GameObject obj = new GameObject(name);
         obj.transform.SetParent(parentTF, false);
 
         newCanvas = obj.AddComponent<Canvas>();

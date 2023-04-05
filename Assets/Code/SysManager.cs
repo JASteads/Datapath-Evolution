@@ -22,6 +22,9 @@ public class SysManager
             .AddComponent<Camera>();
         mainCam.tag = "MainCamera";
         mainCam.orthographic = true;
+
+        GameObject testObj = new GameObject("Test Env");
+        testObj.AddComponent<ClickEvents>();
     }
 
     public static void Quit()

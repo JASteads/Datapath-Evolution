@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{C78FE663-2223-67C6-7F78-F79B1487BF1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -54,8 +53,9 @@
     <UnityVersion>2022.1.23f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\InterfaceTool.cs" />
     <Compile Include="Assets\Code\SysManager.cs" />
+    <Compile Include="Assets\Code\InterfaceTool.cs" />
+    <Compile Include="Assets\Code\ClickEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Graphics\readme.txt" />
