@@ -1,8 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SysManager
 {
     public static Camera mainCam;
+    public static Canvas canvas;
     public static readonly Font DEFAULT_FONT;
     public static readonly Sprite DEFAULT_BUTTON;
 
@@ -22,9 +26,13 @@ public class SysManager
             .AddComponent<Camera>();
         mainCam.tag = "MainCamera";
         mainCam.orthographic = true;
+        InterfaceTool.CanvasSetup("Canvas", null, out canvas);
 
         GameObject testObj = new GameObject("Test Env");
-        testObj.AddComponent<ClickEvents>();
+        // testObj.AddComponent<ClickEvents>();
+        List<LevelObject> levelObjects = new List<LevelObject>();
+        levelObjects.Add(new LevelObject("test1", new List<LevelObjectComponent>()));
+        new Level(levelObjects);
     }
 
     public static void Quit()
