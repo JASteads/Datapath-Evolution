@@ -8,8 +8,7 @@ public class LevelObject
     private List<LevelObjectComponent> components;
     private Image image;
 
-    public LevelObject(string name, List<LevelObjectComponent> components) {
-        this.components = components;
+    public LevelObject(string name) {
         InterfaceTool.ImgSetup(name, null, out image, false);
     }
 

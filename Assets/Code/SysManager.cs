@@ -31,7 +31,7 @@ public class SysManager
         GameObject testObj = new GameObject("Test Env");
         // testObj.AddComponent<ClickEvents>();
         List<LevelObject> levelObjects = new List<LevelObject>();
-        levelObjects.Add(new LevelObject("test1", new List<LevelObjectComponent>()));
+        levelObjects.Add(LevelObjectPresets.createRegisterFile(false, false, false, false, false, false));
         new Level(levelObjects);
     }
 
