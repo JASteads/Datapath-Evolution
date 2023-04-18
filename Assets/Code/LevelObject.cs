@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LevelObject
 {
-    private List<LevelObjectComponent> components;
+    private List<LevelObjectComponent> components = new List<LevelObjectComponent>();
     private Image image;
 
     public LevelObject(string name) {
