@@ -9,7 +9,7 @@ public class ClickEvents : MonoBehaviour
     Image dragWire;
     RectTransform targetLocation;
 
-    Vector2 dragStartPos;
+    Transform dragStartTF;
     const float WIRE_WIDTH = 20;
     const float CANVAS_SCALE = 0.009259259f;
 
@@ -54,6 +54,7 @@ public class ClickEvents : MonoBehaviour
         GameObject nodeInObj = InterfaceTool.ButtonSetup(
             "Node In", clickCanvas.transform, out Image nInImg,
             out nodeIn, null, null);
+        nodeInObj.tag = "InputNode";
         InterfaceTool.FormatRect(nInImg.rectTransform,
             new Vector2(50, 50), new Vector2(0.5f, 0.5f),
             new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
@@ -82,9 +83,10 @@ public class ClickEvents : MonoBehaviour
     
     void StartWireDraw(PointerEventData data)
     {
-        dragStartPos = data.position * CANVAS_SCALE;
-        dragWire.transform.SetParent(
-            data.selectedObject.transform, false);
+        Transform selectTF = data.selectedObject.transform;
+
+        dragStartTF = selectTF;
+        dragWire.transform.SetParent(selectTF, false);
         InterfaceTool.FormatRectNPos(dragWire.rectTransform,
             new Vector2(0, WIRE_WIDTH), new Vector2(0.5f, 0.5f),
             new Vector2(0.5f, 0.5f), new Vector2(0, 0.5f));
@@ -97,32 +99,56 @@ public class ClickEvents : MonoBehaviour
 
     void UpdateWireDraw(PointerEventData data)
     {
-        targetLocation.anchoredPosition = data.position;
-
-        Vector2 diffVector = data.position - data.pressPosition;
-        float wireLen = Mathf.Sqrt(
-            (diffVector.x * diffVector.x) +
-            (diffVector.y * diffVector.y));
-
-        Vector2 normDiff = diffVector.normalized;
-
-        Quaternion newRotation = new Quaternion(
-            0, 0, Mathf.Tan(normDiff.y / normDiff.x), 1);
+        Vector2 screenRes = new Vector2(
+            Screen.width, Screen.height) / 2;
+        Vector2 startPos = (Vector2)dragStartTF.localPosition
+            + screenRes;
+        Vector2 diffVector = data.position - startPos;
+        Quaternion newRotation = Quaternion.Euler(
+            0, 0, 
+            Mathf.Atan2(diffVector.y, diffVector.x) * Mathf.Rad2Deg);
 
         dragWire.rectTransform.sizeDelta = new Vector2(
-            wireLen, WIRE_WIDTH);
+            Vector2.Distance(startPos, data.position), WIRE_WIDTH);
         dragWire.rectTransform.rotation = newRotation;
+        targetLocation.anchoredPosition = data.position;
     }
 
     void FinishWireDraw(PointerEventData data)
     {
-        Debug.Log($"End position : {data.position}");
+        if (IsInInput(data))
+            ConnectNodes(dragWire.rectTransform,
+                dragStartTF, data.pointerEnter.transform);
+
         dragWire.gameObject.SetActive(false);
         targetLocation.gameObject.SetActive(false);
     }
 
-    void Update()
+    bool IsInInput(PointerEventData data)
     {
-        
+        return data.pointerEnter && data.pointerEnter.tag == "InputNode";
+    }
+
+    void ConnectNodes(RectTransform wireTF, Transform src, Transform dest)
+    {
+        GameObject connectObj = InterfaceTool.ButtonSetup(
+            $"Connector Wire", src,
+            out Image wireImg, out Button delButton, null,
+            null);
+
+        delButton.onClick.AddListener(()
+            => DeleteWire(connectObj.transform));
+
+        InterfaceTool.FormatRectNPos(wireImg.rectTransform,
+            new Vector2(wireTF.sizeDelta.x, 10),
+            new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+            new Vector2(0, 0.5f));
+
+        wireImg.rectTransform.rotation = wireTF.rotation;
+    }
+
+    void DeleteWire(Transform targetNode)
+    {
+        Destroy(targetNode.gameObject);
     }
 }

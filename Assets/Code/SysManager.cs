@@ -26,13 +26,9 @@ public class SysManager
             .AddComponent<Camera>();
         mainCam.tag = "MainCamera";
         mainCam.orthographic = true;
-        InterfaceTool.CanvasSetup("Canvas", null, out canvas);
 
         GameObject testObj = new GameObject("Test Env");
-        // testObj.AddComponent<ClickEvents>();
-        List<LevelObject> levelObjects = new List<LevelObject>();
-        levelObjects.Add(LevelObjectPresets.createRegisterFile(false, false, false, false, false, false));
-        new Level(levelObjects);
+        testObj.AddComponent<ClickEvents>();
     }
 
     public static void Quit()
