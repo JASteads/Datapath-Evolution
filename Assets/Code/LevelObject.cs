@@ -27,4 +27,14 @@ public class LevelObject
     public void SetPosition(Vector2 vec) {
         image.rectTransform.anchoredPosition = vec;
     }
+
+    public LevelObjectComponent GetLevelObjectComponent(RectTransform rectTransform) {
+        LevelObjectComponent found = null;
+        GetComponents().ForEach(component => {
+            if (component.GetImage().rectTransform == rectTransform) {
+                found = component;
+            }
+        });
+        return found;
+    }
 }

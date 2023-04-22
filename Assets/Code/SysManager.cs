@@ -10,6 +10,8 @@ public class SysManager
     public static readonly Font DEFAULT_FONT;
     public static readonly Sprite DEFAULT_BUTTON;
 
+    public static Level currentLevel;
+
     static SysManager()
     {
         DEFAULT_FONT = Resources.GetBuiltinResource<Font>(
@@ -29,6 +31,8 @@ public class SysManager
 
         GameObject testObj = new GameObject("Test Env");
         testObj.AddComponent<ClickEvents>();
+
+        currentLevel = new Level("level 1");
     }
 
     public static void Quit()
