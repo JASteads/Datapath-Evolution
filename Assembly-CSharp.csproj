@@ -56,10 +56,11 @@
     <Compile Include="Assets\Code\SysManager.cs" />
     <Compile Include="Assets\Code\InterfaceTool.cs" />
     <Compile Include="Assets\Code\ClickEvents.cs" />
+    <Compile Include="Assets\Code\Level.cs" />
     <Compile Include="Assets\Code\LevelObject.cs" />
     <Compile Include="Assets\Code\LevelObjectPresets.cs" />
-    <Compile Include="Assets\Code\Level.cs" />
     <Compile Include="Assets\Code\LevelObjectComponent.cs" />
+    <Compile Include="Assets\Code\ConnectWire.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Graphics\readme.txt" />

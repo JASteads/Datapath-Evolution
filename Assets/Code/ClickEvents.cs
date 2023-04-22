@@ -126,29 +126,18 @@ public class ClickEvents : MonoBehaviour
 
     bool IsInInput(PointerEventData data)
     {
-        return data.pointerEnter && data.pointerEnter.tag == "InputNode";
+        return data.pointerEnter && data.pointerEnter.tag
+            == "InputNode";
     }
 
-    void ConnectNodes(RectTransform wireTF, Transform src, Transform dest)
+    void ConnectNodes(RectTransform wireTF, Transform src,
+        Transform dest)
     {
-        GameObject connectObj = InterfaceTool.ButtonSetup(
+        ConnectWire connectObj = InterfaceTool.ButtonSetup(
             $"Connector Wire", src,
             out Image wireImg, out Button delButton, null,
-            null);
+            null).AddComponent<ConnectWire>();
 
-        delButton.onClick.AddListener(()
-            => DeleteWire(connectObj.transform));
-
-        InterfaceTool.FormatRectNPos(wireImg.rectTransform,
-            new Vector2(wireTF.sizeDelta.x, 10),
-            new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-            new Vector2(0, 0.5f));
-
-        wireImg.rectTransform.rotation = wireTF.rotation;
-    }
-
-    void DeleteWire(Transform targetNode)
-    {
-        Destroy(targetNode.gameObject);
+        connectObj.InitConnectWire(dest, wireTF, wireImg, delButton);
     }
 }
