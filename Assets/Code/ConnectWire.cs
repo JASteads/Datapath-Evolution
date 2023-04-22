@@ -22,7 +22,11 @@ public class ConnectWire : MonoBehaviour
             new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
             new Vector2(0, 0.5f));
 
-        if (!target.TryGetComponent(out targetComponent))
+        LevelObject levelObject = SysManager.currentLevel.GetLevelObject(wireTF);
+        if (levelObject != null) {
+            targetComponent = levelObject.GetLevelObjectComponent(wireTF);
+        }
+        if (targetComponent == null)
             Debug.Log("No level object component found");
         else
             targetComponent.SetCurrentState(true);
