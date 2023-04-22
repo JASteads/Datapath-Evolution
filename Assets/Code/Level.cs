@@ -6,7 +6,7 @@ public class Level
 {
     private string name;
     private List<LevelObject> objects = new List<LevelObject>();
-    private Dictionary<string, int> requiredControlSignals = new Dictionary<string, int>(), currentControlSignals = new Dictionary<string, int>();
+    private Dictionary<ControlSignal, int> requiredControlSignals = new Dictionary<ControlSignal, int>(), currentControlSignals = new Dictionary<ControlSignal, int>();
     private bool isLevelComplete = false;
 
     public Level(string name) {
@@ -22,24 +22,28 @@ public class Level
         objects.ForEach(obj => this.objects.Add(obj));
     }
 
-    public void setRequiredControlSignals(int regDst, int regWrite, int pcSrc, int aluSrc, int memRead, int memWrite, int memToReg) {
-        requiredControlSignals.Add("RegDST", regDst);
-        requiredControlSignals.Add("RegWrite", regWrite);
-        requiredControlSignals.Add("PCSrc", pcSrc);
-        requiredControlSignals.Add("ALUSrc", aluSrc);
-        requiredControlSignals.Add("MemRead", memRead);
-        requiredControlSignals.Add("MemWrite", memWrite);
-        requiredControlSignals.Add("MemToReg", memToReg);
+    public void SetRequiredControlSignals(int regDst, int regWrite, int pcSrc, int aluSrc, int memRead, int memWrite, int memToReg) {
+        requiredControlSignals.Add(ControlSignal.REG_DST, regDst);
+        requiredControlSignals.Add(ControlSignal.REG_WRITE, regWrite);
+        requiredControlSignals.Add(ControlSignal.PC_SRC, pcSrc);
+        requiredControlSignals.Add(ControlSignal.ALU_SRC, aluSrc);
+        requiredControlSignals.Add(ControlSignal.MEM_READ, memRead);
+        requiredControlSignals.Add(ControlSignal.MEM_WRITE, memWrite);
+        requiredControlSignals.Add(ControlSignal.MEM_TO_REG, memToReg);
         //default all current to 0
-        foreach (KeyValuePair<string, int> signal in requiredControlSignals) {
+        foreach (KeyValuePair<ControlSignal, int> signal in requiredControlSignals) {
             currentControlSignals.Add(signal.Key, 0);
         }
     }
 
+    public void SetSignal(ControlSignal key, int value) {
+        currentControlSignals.Add(key, value);
+    }
+
     public void CheckState() {
         // never runs with no required signals
-        foreach (KeyValuePair<string, int> requiredSignal in requiredControlSignals) {
-            foreach (KeyValuePair<string, int> currentSignal in currentControlSignals) {
+        foreach (KeyValuePair<ControlSignal, int> requiredSignal in requiredControlSignals) {
+            foreach (KeyValuePair<ControlSignal, int> currentSignal in currentControlSignals) {
                 if (requiredSignal.Key == currentSignal.Key && requiredSignal.Value != currentSignal.Value) {
                     return;
                 }
@@ -72,5 +76,9 @@ public class Level
             }
         });
         return found;
+    }
+
+    public enum ControlSignal {
+        REG_DST, REG_WRITE, PC_SRC, ALU_SRC, MEM_READ, MEM_WRITE, MEM_TO_REG
     }
 }
