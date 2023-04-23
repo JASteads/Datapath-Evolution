@@ -3,38 +3,38 @@ using System.Collections.Generic;
 
 public class LevelObjectPresets
 {
-    public static LevelObject createALU(bool expectedIn1, bool expectedIn2, bool expectedOut) {
-        LevelObject levelObject = new LevelObject("alu");
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "expected_in_1", expectedIn1));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "expected_in_2", expectedIn2));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "expected_out", expectedOut));
-        return levelObject;
+    public static Stage2Object createALU(bool expectedIn1, bool expectedIn2, bool expectedOut) {
+        Stage2Object stage2Object = new Stage2Object("alu");
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "expected_in_1", expectedIn1));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "expected_in_2", expectedIn2));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "expected_out", expectedOut));
+        return stage2Object;
     }
 
-    public static LevelObject createDataMemory(bool expectedAddress, bool expectedWriteData, bool expectedReadData) {
-        LevelObject levelObject = new LevelObject("data_memory");
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "address", expectedAddress));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "write_data", expectedWriteData));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "read_data", expectedReadData));
-        return levelObject;
+    public static Stage2Object createDataMemory(bool expectedAddress, bool expectedWriteData, bool expectedReadData) {
+        Stage2Object stage2Object = new Stage2Object("data_memory");
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "address", expectedAddress));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "write_data", expectedWriteData));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "read_data", expectedReadData));
+        return stage2Object;
     }
 
-    public static LevelObject createMUX(bool expectedIn1, bool expectedIn2, bool expectedOut) {
-        LevelObject levelObject = new LevelObject("mux");
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "expected_in_1", expectedIn1));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "expected_in_2", expectedIn2));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "expected_out", expectedOut));
-        return levelObject;
+    public static Stage2Object createMUX(bool expectedIn1, bool expectedIn2, bool expectedOut) {
+        Stage2Object stage2Object = new Stage2Object("mux");
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "expected_in_1", expectedIn1));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "expected_in_2", expectedIn2));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "expected_out", expectedOut));
+        return stage2Object;
     }
 
-    public static LevelObject createRegisterFile(bool expectedReadRegister1, bool expectedReadRegister2, bool expectedWriteRegister, bool expectedWriteData, bool expectedReadData1, bool expectedReadData2) {
-        LevelObject levelObject = new LevelObject("register_file");
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "read_register_1", expectedReadRegister1));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "read_register_2", expectedReadRegister2));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "write_register", expectedWriteRegister));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "write_data", expectedWriteData));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "read_data_1", expectedReadData1));
-        levelObject.GetComponents().Add(new LevelObjectComponent(levelObject, "read_data_2", expectedReadData2));
-        return levelObject;
+    public static Stage2Object createRegisterFile(bool expectedReadRegister1, bool expectedReadRegister2, bool expectedWriteRegister, bool expectedWriteData, bool expectedReadData1, bool expectedReadData2) {
+        Stage2Object stage2Object = new Stage2Object("register_file");
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "read_register_1", expectedReadRegister1));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "read_register_2", expectedReadRegister2));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "write_register", expectedWriteRegister));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "write_data", expectedWriteData));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "read_data_1", expectedReadData1));
+        stage2Object.GetComponents().Add(new Stage2ObjectComponent(stage2Object, "read_data_2", expectedReadData2));
+        return stage2Object;
     }
 }

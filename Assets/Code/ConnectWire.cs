@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ConnectWire : MonoBehaviour
 {
     const float WIRE_WIDTH = 10;
-    LevelObjectComponent targetComponent;
+    Stage2ObjectComponent targetComponent;
     
     public void InitConnectWire(Transform target, 
         RectTransform wireTF, Image wireImg, Button delButton)
@@ -22,9 +22,9 @@ public class ConnectWire : MonoBehaviour
             new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
             new Vector2(0, 0.5f));
 
-        LevelObject levelObject = SysManager.currentLevel.GetLevelObject(wireTF);
-        if (levelObject != null) {
-            targetComponent = levelObject.GetLevelObjectComponent(wireTF);
+        Stage2Object Stage2Object = SysManager.currentLevel.GetStage2Object(wireTF);
+        if (Stage2Object != null) {
+            targetComponent = Stage2Object.GetStage2ObjectComponent(wireTF);
         }
         if (targetComponent == null)
             Debug.Log("No level object component found");

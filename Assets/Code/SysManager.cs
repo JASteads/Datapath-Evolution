@@ -10,7 +10,7 @@ public class SysManager
     public static readonly Font DEFAULT_FONT;
     public static readonly Sprite DEFAULT_BUTTON;
 
-    public static Level currentLevel;
+    public static Stage2 currentLevel;
 
     static SysManager()
     {
@@ -32,7 +32,7 @@ public class SysManager
         GameObject testObj = new GameObject("Test Env");
         testObj.AddComponent<ClickEvents>();
 
-        currentLevel = new Level("level 1");
+        currentLevel = new Stage2("level 1");
     }
 
     public static void Quit()

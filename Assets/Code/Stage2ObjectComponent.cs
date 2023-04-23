@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelObjectComponent
+public class Stage2ObjectComponent
 {
     private Image image;
 
     private bool currentState = false, expectedState = false;
 
-    public LevelObjectComponent(LevelObject obj, string name, bool expectedState) {
+    public Stage2ObjectComponent(Stage2Object obj, string name, bool expectedState) {
         this.expectedState = expectedState;
         InterfaceTool.ImgSetup(name, obj.GetImage().transform, out image, true);
     }

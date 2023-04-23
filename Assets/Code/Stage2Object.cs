@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelObject
+public class Stage2Object
 {
-    private List<LevelObjectComponent> components = new List<LevelObjectComponent>();
+    private List<Stage2ObjectComponent> components = new List<Stage2ObjectComponent>();
     private Image image;
 
-    public LevelObject(string name) {
+    public Stage2Object(string name) {
         InterfaceTool.ImgSetup(name, null, out image, false);
     }
 
-    public List<LevelObjectComponent> GetComponents() {
+    public List<Stage2ObjectComponent> GetComponents() {
         return components;
     }
 
@@ -28,8 +28,8 @@ public class LevelObject
         image.rectTransform.anchoredPosition = vec;
     }
 
-    public LevelObjectComponent GetLevelObjectComponent(RectTransform rectTransform) {
-        LevelObjectComponent found = null;
+    public Stage2ObjectComponent GetStage2ObjectComponent(RectTransform rectTransform) {
+        Stage2ObjectComponent found = null;
         GetComponents().ForEach(component => {
             if (component.GetImage().rectTransform == rectTransform) {
                 found = component;
