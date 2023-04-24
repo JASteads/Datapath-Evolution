@@ -6,16 +6,16 @@ using UnityEngine;
 public class Stage2 : Level
 {
     private List<Stage2Object> objects = new List<Stage2Object>();
-    private Dictionary<ControlSignal, int> requiredControlSignals = new Dictionary<ControlSignal, int>(), currentControlSignals = new Dictionary<ControlSignal, int>();
+    private Dictionary<ControlSignal, int> expectedControlSignals = new Dictionary<ControlSignal, int>(), currentControlSignals = new Dictionary<ControlSignal, int>();
 
     public Stage2(string name, int regDst, int regWrite, int pcSrc, int aluSrc, int memRead, int memWrite, int memToReg) : base(name) {
-        requiredControlSignals.Add(ControlSignal.REG_DST, regDst);
-        requiredControlSignals.Add(ControlSignal.REG_WRITE, regWrite);
-        requiredControlSignals.Add(ControlSignal.PC_SRC, pcSrc);
-        requiredControlSignals.Add(ControlSignal.ALU_SRC, aluSrc);
-        requiredControlSignals.Add(ControlSignal.MEM_READ, memRead);
-        requiredControlSignals.Add(ControlSignal.MEM_WRITE, memWrite);
-        requiredControlSignals.Add(ControlSignal.MEM_TO_REG, memToReg);
+        expectedControlSignals.Add(ControlSignal.REG_DST, regDst);
+        expectedControlSignals.Add(ControlSignal.REG_WRITE, regWrite);
+        expectedControlSignals.Add(ControlSignal.PC_SRC, pcSrc);
+        expectedControlSignals.Add(ControlSignal.ALU_SRC, aluSrc);
+        expectedControlSignals.Add(ControlSignal.MEM_READ, memRead);
+        expectedControlSignals.Add(ControlSignal.MEM_WRITE, memWrite);
+        expectedControlSignals.Add(ControlSignal.MEM_TO_REG, memToReg);
         //default all current to 0
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
             currentControlSignals.Add(signal, 0);
@@ -24,7 +24,7 @@ public class Stage2 : Level
 
     public override bool CheckWinCondition() {
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
-            if (currentControlSignals[signal] != requiredControlSignals[signal]) {
+            if (currentControlSignals[signal] != expectedControlSignals[signal]) {
                 return false;
             }
         }
