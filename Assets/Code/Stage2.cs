@@ -6,9 +6,10 @@ using UnityEngine;
 public class Stage2 : Level
 {
     private List<Stage2Object> objects = new List<Stage2Object>();
-    private Dictionary<ControlSignal, int> expectedControlSignals = new Dictionary<ControlSignal, int>(), currentControlSignals = new Dictionary<ControlSignal, int>();
+    private Dictionary<ControlSignal, bool> expectedControlSignals = new Dictionary<ControlSignal, bool>(), currentControlSignals = new Dictionary<ControlSignal, bool>();
+    private bool validControlSignals = false;
 
-    public Stage2(string name, int regDst, int regWrite, int pcSrc, int aluSrc, int memRead, int memWrite, int memToReg) : base(name) {
+    public Stage2(string name, bool regDst, bool regWrite, bool pcSrc, bool aluSrc, bool memRead, bool memWrite, bool memToReg) : base(name) {
         expectedControlSignals.Add(ControlSignal.REG_DST, regDst);
         expectedControlSignals.Add(ControlSignal.REG_WRITE, regWrite);
         expectedControlSignals.Add(ControlSignal.PC_SRC, pcSrc);
@@ -18,15 +19,13 @@ public class Stage2 : Level
         expectedControlSignals.Add(ControlSignal.MEM_TO_REG, memToReg);
         //default all current to 0
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
-            currentControlSignals.Add(signal, 0);
+            currentControlSignals.Add(signal, false);
         }
     }
 
     public override bool CheckWinCondition() {
-        foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
-            if (currentControlSignals[signal] != expectedControlSignals[signal]) {
-                return false;
-            }
+        if (!validControlSignals) {
+            return false;
         }
         foreach (Stage2Object obj in objects) {
             foreach (Stage2ObjectComponent component in obj.GetComponents()) {
@@ -38,6 +37,15 @@ public class Stage2 : Level
         return true;
     }
 
+    public void CheckControlSignals() {
+        foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
+            if (currentControlSignals[signal] != expectedControlSignals[signal]) {
+                return;
+            }
+        }
+        validControlSignals = true;
+    }
+
     public void AddLevelObject(Stage2Object levelObject) {
         objects.Add(levelObject);
         levelObject.GetImage().transform.SetParent(SysManager.canvas.transform, false);
@@ -47,7 +55,7 @@ public class Stage2 : Level
         objects.ForEach(obj => this.objects.Add(obj));
     }
 
-    public void SetSignal(ControlSignal key, int value) {
+    public void SetSignal(ControlSignal key, bool value) {
         currentControlSignals.Add(key, value);
     }
 

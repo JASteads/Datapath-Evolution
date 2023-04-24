@@ -32,7 +32,7 @@ public class SysManager
         GameObject testObj = new GameObject("Test Env");
         testObj.AddComponent<ClickEvents>();
 
-        currentLevel = new Stage2("level 2", 0, 0, 0, 0, 0, 0, 0);
+        currentLevel = new Stage2("level 2", false, false, false, false, false, false, false);
     }
 
     public static void Quit()
