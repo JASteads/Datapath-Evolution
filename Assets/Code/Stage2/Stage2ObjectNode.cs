@@ -5,6 +5,7 @@ public class Stage2ObjectNode
 {
     bool currentState = false;
     Button button;
+    public readonly RectTransform parent;
 
     readonly bool expectedState;
     readonly ConnectWire link;
@@ -18,6 +19,8 @@ public class Stage2ObjectNode
         this.expectedState = expectedState;
         GameObject nodeObj = InterfaceTool.ButtonSetup(name,
             obj.GetTF(), out Image image, out button, null, null);
+
+        parent = obj.GetTF();
 
         if (type == NodeType.OUTPUT)
         {

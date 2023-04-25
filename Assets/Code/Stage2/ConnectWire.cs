@@ -75,7 +75,10 @@ public class ConnectWire
             Screen.width, Screen.height) / 2;
         Vector2 mousePos = (data.position - screenRes) * scaleRatio;
         
-        Vector2 startPos = src.GetTF().anchoredPosition;
+        Vector2 startPos = new Vector2(
+             (src.parent.sizeDelta.x / 2) + src.parent.anchoredPosition.x,
+             src.parent.anchoredPosition.y + src.GetTF().anchoredPosition.y);
+
         Vector2 diffVector = mousePos - startPos;
         Quaternion newRotation = Quaternion.Euler(
             0, 0,
