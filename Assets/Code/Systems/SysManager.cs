@@ -29,13 +29,12 @@ public class SysManager
         mainCam.orthographic = true;
         mainCam.backgroundColor = new Color(0.2f, 0.2f, 0.5f);
 
-        GameObject canvasObj = InterfaceTool.CanvasSetup(
-            "Main Canvas", null, out Canvas clickCanvas);
-
+        GameObject clickCanvasObj = InterfaceTool.CanvasSetup(
+            "Main Canvas", null, out canvas);
 
         /*** Test instace of Stage 2 ***/
 
-        currentLevel = new Stage2("Stage 2", canvasObj.transform);
+        currentLevel = new Stage2("Stage 2", clickCanvasObj.transform, true, false, false, true, false, true, false);
 
         Stage2Object stageObj = new Stage2Object("Stage Object");
         
