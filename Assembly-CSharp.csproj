@@ -53,17 +53,15 @@
     <UnityVersion>2022.1.23f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Code\SysManager.cs" />
-    <Compile Include="Assets\Code\InterfaceTool.cs" />
+    <Compile Include="Assets\Code\Stage2\Stage2Object.cs" />
+    <Compile Include="Assets\Code\Stage2\Stage2.cs" />
     <Compile Include="Assets\Code\ClickEvents.cs" />
-    <Compile Include="Assets\Code\Level.cs" />
-    <Compile Include="Assets\Code\LevelObject.cs" />
+    <Compile Include="Assets\Code\Systems\InterfaceTool.cs" />
+    <Compile Include="Assets\Code\Stage2\ConnectWire.cs" />
+    <Compile Include="Assets\Code\Systems\SysManager.cs" />
     <Compile Include="Assets\Code\LevelObjectPresets.cs" />
-    <Compile Include="Assets\Code\LevelObjectComponent.cs" />
-    <Compile Include="Assets\Code\ConnectWire.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Graphics\readme.txt" />
+    <Compile Include="Assets\Code\Level.cs" />
+    <Compile Include="Assets\Code\Stage2\Stage2ObjectNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

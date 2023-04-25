@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class ClickEvents : MonoBehaviour
 {
+    /*
     Canvas clickCanvas;
     Button nodeOut, nodeIn;
     Image dragWire;
@@ -11,15 +12,18 @@ public class ClickEvents : MonoBehaviour
 
     Transform dragStartTF;
     const float WIRE_WIDTH = 20;
-    const float CANVAS_SCALE = 0.009259259f;
-
-    UnityEngine.Events.UnityAction startDrag;
-
+    /*
     void Start()
     {
         GameObject canvasObj = InterfaceTool.CanvasSetup(
             "Click Canvas", transform, out clickCanvas);
+        Stage2Object stageObj = new Stage2Object("Stage Object");
+        stageObj.GetTF().SetParent(canvasObj.transform, false);
 
+        Stage2ObjectNode NodeOutObj = new Stage2ObjectNode(stageObj, "Out Node", true, NodeType.OUTPUT);
+        Stage2ObjectNode NodeInObj = new Stage2ObjectNode(stageObj, "In Node", true, NodeType.INPUT);
+
+        
         GameObject nodeOutObj = InterfaceTool.ButtonSetup(
             "Node Out", clickCanvas.transform, out Image nOutImg,
             out nodeOut, null, null);
@@ -59,7 +63,7 @@ public class ClickEvents : MonoBehaviour
             new Vector2(50, 50), new Vector2(0.5f, 0.5f),
             new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
             new Vector2(200, 0));
-
+        
         InterfaceTool.ImgSetup(
             "Target Location", clickCanvas.transform,
             out Image targetImg, false);
@@ -79,6 +83,7 @@ public class ClickEvents : MonoBehaviour
             new Vector2(1, WIRE_WIDTH));
         dragWire.gameObject.SetActive(false);
         targetLocation.gameObject.SetActive(false);
+        
     }
     
     void StartWireDraw(PointerEventData data)
@@ -138,6 +143,7 @@ public class ClickEvents : MonoBehaviour
             out Image wireImg, out Button delButton, null,
             null).AddComponent<ConnectWire>();
 
-        connectObj.InitConnectWire(dest, wireTF, wireImg, delButton);
+        connectObj.InitConnectWire(dest, wireTF, wireImg, delButton);   
     }
+    */
 }
