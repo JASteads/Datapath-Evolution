@@ -32,7 +32,7 @@ public class SysManager
         GameObject clickCanvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
 
-        /*** Test instace of Stage 2 ***/
+        /*** Test instance of Stage 2 ***/
 
         currentLevel = new Stage2("Stage 2", clickCanvasObj.transform, true, false, false, true, false, true, false);
 
@@ -43,15 +43,14 @@ public class SysManager
         Stage2ObjectNode nodeOutObj = new Stage2ObjectNode(stageObj, "Out Node", true, NodeType.OUTPUT, 0);
         Stage2ObjectNode nodeInObj = new Stage2ObjectNode(stageObj, "In Node", true, NodeType.INPUT, 0);
 
+        nodeOutObj.GetTF().anchoredPosition = new Vector2(-400, 0);
+
         stageObj.AddNode(nodeOutObj);
         stageObj.AddNode(nodeInObj);
 
         (currentLevel as Stage2).AddLevelObject(stageObj);
 
         /***   End of Test Stage 2   ***/
-
-
-        // currentLevel = new Stage2("level 2", 0, 0, 0, 0, 0, 0, 0);
     }
 
     public static void Quit()
