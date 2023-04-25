@@ -36,20 +36,6 @@ public class SysManager
 
         currentLevel = new Stage2("Stage 2", clickCanvasObj.transform, true, false, false, true, false, true, false);
 
-        Stage2Object stageObj = new Stage2Object("Stage Object");
-        
-        InterfaceTool.FormatRectNPos(stageObj.GetTF(), Vector2.zero);
-
-        Stage2ObjectNode nodeOutObj = new Stage2ObjectNode(stageObj, "Out Node", true, NodeType.OUTPUT, 0);
-        Stage2ObjectNode nodeInObj = new Stage2ObjectNode(stageObj, "In Node", true, NodeType.INPUT, 0);
-
-        nodeOutObj.GetTF().anchoredPosition = new Vector2(-400, 0);
-
-        stageObj.AddNode(nodeOutObj);
-        stageObj.AddNode(nodeInObj);
-
-        (currentLevel as Stage2).AddLevelObject(stageObj);
-
         /***   End of Test Stage 2   ***/
     }
 

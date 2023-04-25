@@ -73,6 +73,10 @@ public class Stage2 : Level
     }
 
     private void CreateObjects() {
+        CreateControlObjects();
+    }
+
+    private void CreateControlObjects() {
         //control
         GameObject control = InterfaceTool.ImgSetup("Control", SysManager.canvas.transform, out Image controlImg, false);
         InterfaceTool.FormatRect(controlImg.rectTransform, new Vector2(300, 600), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
@@ -82,10 +86,13 @@ public class Stage2 : Level
             CreateControlToggle(signal, controlImg, yOffset);
             yOffset -= 80;
         }
-        //win check
+        //control signal check
         GameObject winCheck = InterfaceTool.ButtonSetup("Check Signals", controlImg.transform, out Image winCheckImg, out Button button, null, () => {
             CheckControlSignals();
-            Debug.Log("Valid Signals: " + validControlSignals);
+            if (validControlSignals) {
+                GameObject.Destroy(control);
+                CreateDatapathObjects();
+            }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
         winCheckImg.color = Color.gray;
@@ -110,6 +117,10 @@ public class Stage2 : Level
         Text txt = InterfaceTool.CreateHeader(name, objImg.transform, new Vector2(60, 20), new Vector2(-110, -40), 16);
         txt.color = Color.black;
         return obj;
+    }
+
+    private void CreateDatapathObjects() {
+        AddLevelObject(LevelObjectPresets.createALU(true, true, false));
     }
 
     public enum ControlSignal {

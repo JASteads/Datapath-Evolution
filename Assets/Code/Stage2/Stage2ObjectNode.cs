@@ -63,6 +63,10 @@ public class Stage2ObjectNode
             new Vector2(0, yOffset));
     }
 
+    public Image GetImage() {
+        return button.image;
+    }
+
     public RectTransform GetTF()
     {
         return button.image.rectTransform;
