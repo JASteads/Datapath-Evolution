@@ -120,9 +120,10 @@ public class Stage2 : Level
     }
 
     private void CreateDatapathObjects() {
-        AddLevelObject(LevelObjectPresets.createRegisterFile(-200, 0, false, false, false, false, false, false));
-        AddLevelObject(LevelObjectPresets.createALU(200, 0, true, true, false));
-        AddLevelObject(LevelObjectPresets.createDataMemory(600, 0, true, true, false));
+        AddLevelObject(LevelObjectPresets.CreateInstructionMemory(-600, 0, false, false));
+        AddLevelObject(LevelObjectPresets.CreateRegisterFile(-200, 0, false, false, false, false, false, false));
+        AddLevelObject(LevelObjectPresets.CreateALU(200, 0, true, true, false));
+        AddLevelObject(LevelObjectPresets.CreateDataMemory(600, 0, true, true, false));
     }
 
     public enum ControlSignal {

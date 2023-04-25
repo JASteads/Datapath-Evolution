@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelObjectPresets
 {
-    public static Stage2Object createALU(int xPosition, int yPosition, bool expectedIn1, bool expectedIn2, bool expectedOut) {
+    public static Stage2Object CreateALU(int xPosition, int yPosition, bool expectedIn1, bool expectedIn2, bool expectedOut) {
         Stage2Object aluObj = new Stage2Object("ALU");
         InterfaceTool.FormatRect(aluObj.GetTF(), new Vector2(140, 140), new Vector2(xPosition, yPosition));
 
@@ -26,7 +26,7 @@ public class LevelObjectPresets
         return aluObj;
     }
 
-    public static Stage2Object createDataMemory(int xPosition, int yPosition, bool expectedAddress, bool expectedWriteData, bool expectedReadData) {
+    public static Stage2Object CreateDataMemory(int xPosition, int yPosition, bool expectedAddress, bool expectedWriteData, bool expectedReadData) {
         Stage2Object dataMemoryObj = new Stage2Object("Data Memory");
         InterfaceTool.FormatRect(dataMemoryObj.GetTF(), new Vector2(300, 300), new Vector2(xPosition, yPosition));
 
@@ -48,7 +48,24 @@ public class LevelObjectPresets
         return dataMemoryObj;
     }
 
-    public static Stage2Object createMUX(bool expectedIn1, bool expectedIn2, bool expectedOut) {
+    public static Stage2Object CreateInstructionMemory(int xPosition, int yPosition, bool expectedReadAddress, bool expectedInstruction) {
+        Stage2Object instructionMemoryObj = new Stage2Object("Instruction Memory");
+        InterfaceTool.FormatRect(instructionMemoryObj.GetTF(), new Vector2(300, 300), new Vector2(xPosition, yPosition));
+
+        Stage2ObjectNode readAddressObj = new Stage2ObjectNode(instructionMemoryObj, "Read Address", expectedReadAddress, NodeType.INPUT);
+        readAddressObj.GetImage().color = Color.gray;
+        readAddressObj.GetTF().anchoredPosition = new Vector2(-10, 0);
+        instructionMemoryObj.AddNode(readAddressObj);
+
+        Stage2ObjectNode instructionObj = new Stage2ObjectNode(instructionMemoryObj, "Instruction", expectedInstruction, NodeType.OUTPUT);
+        instructionObj.GetImage().color = Color.gray;
+        instructionObj.GetTF().anchoredPosition = new Vector2(10, 0);
+        instructionMemoryObj.AddNode(instructionObj);
+
+        return instructionMemoryObj;
+    }
+
+    public static Stage2Object CreateMUX(bool expectedIn1, bool expectedIn2, bool expectedOut) {
         Stage2Object stage2Object = new Stage2Object("mux");
         stage2Object.GetNodes().Add(new Stage2ObjectNode(stage2Object, "expected_in_1", expectedIn1, NodeType.INPUT));
         stage2Object.GetNodes().Add(new Stage2ObjectNode(stage2Object, "expected_in_0", expectedIn2, NodeType.INPUT));
@@ -56,7 +73,7 @@ public class LevelObjectPresets
         return stage2Object;
     }
 
-    public static Stage2Object createRegisterFile(int xPosition, int yPosition, bool expectedReadRegister1, bool expectedReadRegister2, bool expectedWriteRegister, bool expectedWriteData, bool expectedReadData1, bool expectedReadData2) {
+    public static Stage2Object CreateRegisterFile(int xPosition, int yPosition, bool expectedReadRegister1, bool expectedReadRegister2, bool expectedWriteRegister, bool expectedWriteData, bool expectedReadData1, bool expectedReadData2) {
         Stage2Object registerFileObj = new Stage2Object("Register File");
         InterfaceTool.FormatRect(registerFileObj.GetTF(), new Vector2(300, 300), new Vector2(xPosition, yPosition));
 
