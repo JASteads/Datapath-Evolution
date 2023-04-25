@@ -23,8 +23,13 @@ public class Stage2ObjectNode
         {
             nodePos = 1;
             link = new ConnectWire(this);
+            nodeObj.tag = "Output Node";
         }
-        else nodePos = 0;
+        else
+        {
+            nodePos = 0;
+            nodeObj.tag = "Input Node";
+        }
 
         InterfaceTool.FormatRectNPos(image.rectTransform,
             new Vector2(50, 50), new Vector2(nodePos, 0.5f),
@@ -37,15 +42,20 @@ public class Stage2ObjectNode
         float nodePos;
         this.type = type;
         this.expectedState = expectedState;
-        InterfaceTool.ButtonSetup(name, obj.GetTF(),
+        GameObject nodeObj = InterfaceTool.ButtonSetup(name, obj.GetTF(),
             out Image image, out button, null, null);
 
         if (type == NodeType.OUTPUT)
         {
             nodePos = 1;
             link = new ConnectWire(this);
+            nodeObj.tag = "Output Node";
         }
-        else nodePos = 0;
+        else
+        {
+            nodePos = 0;
+            nodeObj.tag = "Input Node";
+        }
 
         InterfaceTool.FormatRect(image.rectTransform,
             new Vector2(50, 50), new Vector2(nodePos, 0.5f),
