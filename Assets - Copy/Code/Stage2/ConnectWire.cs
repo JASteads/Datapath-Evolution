@@ -6,9 +6,9 @@ public class ConnectWire
 {
     const float WIRE_WIDTH = 20, CONNECT_WIDTH = 10;
     readonly Vector2 canvasRes = new Vector2(1920, 1080);
-    
-    Stage2ObjectNode src, dest;
     Vector2 scaleRatio, screenRes;
+
+    Stage2ObjectNode src, dest;
     Button delButton;
     Image wireImg;
 
@@ -61,15 +61,18 @@ public class ConnectWire
         InterfaceTool.FormatRectNPos(wireImg.rectTransform,
             new Vector2(0, WIRE_WIDTH), new Vector2(1, 0.5f),
             new Vector2(1, 0.5f), new Vector2(0, 0.5f));
+
         GetTF().anchoredPosition = Vector2.zero;
-        GetTF().gameObject.SetActive(true);
 
         wireImg.gameObject.SetActive(true);
+        GetTF().gameObject.SetActive(true);
     }
 
     void UpdateWireDraw(PointerEventData data)
     {
+       
         if (dest != null) return;
+
         
         Vector2 mousePos = (data.position - screenRes) * scaleRatio;
         Vector2 startPos = new Vector2(
