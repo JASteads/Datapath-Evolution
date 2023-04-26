@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class DragAndSnapEvent
 {
     readonly Transform target, parent;
+    readonly Vector2 defaultPosition;
     readonly DropLocationList dList;
     readonly int state;
 
@@ -21,6 +22,7 @@ public class DragAndSnapEvent
         state = _state;
 
         parent = target.parent;
+        defaultPosition = target.localPosition;
 
         EventTrigger.Entry dragStart = new EventTrigger.Entry
         { eventID = EventTriggerType.BeginDrag },
@@ -66,16 +68,17 @@ public class DragAndSnapEvent
     {
         rayTarget.raycastTarget = true;
 
-        if (dList == null)
+        if (data.pointerEnter == null || dList == null)
         {
-            target.localPosition = startPos;
+            target.localPosition = dropLocation == null ?
+                defaultPosition : startPos;
             return;
         }
 
         dropLocation = dList.SearchLocations
             (data.pointerEnter.transform);
 
-        if (dropLocation.GetTF().tag != "Drag Object")
+        if (dropLocation?.GetTF().tag != "Drag Object")
         {
             target.SetParent(dropLocation.GetTF(), false);
             target.localPosition = Vector2.zero;
