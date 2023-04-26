@@ -6,15 +6,17 @@ public class DragAndSnapEvent
 {
     readonly Transform target;
     readonly DropLocationList dList;
+    readonly int state;
     Graphic rayTarget;
     Vector2 screenOffset, startPos;
 
     public DragAndSnapEvent(Graphic _target,
-        DropLocationList _dList)
+        DropLocationList _dList, int _state)
     {
         dList = _dList;
         rayTarget = _target;
         target = _target.transform;
+        state = _state;
 
         EventTrigger.Entry dragStart = new EventTrigger.Entry
         { eventID = EventTriggerType.BeginDrag },
@@ -66,6 +68,8 @@ public class DragAndSnapEvent
         {
             Debug.Log("Snapping");
             target.SetParent(dropLocation.GetTF(), false);
+            dropLocation.SetState(state);
+            
         }
         else target.localPosition = startPos;
         

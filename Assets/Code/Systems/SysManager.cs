@@ -33,12 +33,6 @@ public class SysManager
         GameObject clickCanvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
 
-        GameObject testObj = InterfaceTool.ImgSetup("Test",
-            canvas.transform, out Image img, true);
-        InterfaceTool.FormatRectNPos(img.rectTransform,
-            new Vector2(50, 50), new Vector2(0.5f, 0.5f),
-            new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-        DragAndSnapEvent dse = new DragAndSnapEvent(img, null);
     }
 
     public static void Quit()
