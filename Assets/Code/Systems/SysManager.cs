@@ -32,8 +32,7 @@ public class SysManager
 
         GameObject clickCanvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
-
-        currentLevel = new Stage3("Stage 3");
+        clickCanvasObj.AddComponent<MainMenu>();
     }
 
     public static void Quit()
