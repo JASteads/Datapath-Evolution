@@ -47,6 +47,7 @@ public class DragAndSnapEvent
     {
         if (dropLocation != null)
         {
+            dropLocation.SetState(DropLocation.UNSET);
             dropLocation = null;
             target.SetParent(parent, false);
         }   
