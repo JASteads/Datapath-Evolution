@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{C78FE663-2223-67C6-7F78-F79B1487BF1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -68,6 +69,7 @@
     <Compile Include="Assets\Code\Systems\DragNSnap\DropLocation.cs" />
     <Compile Include="Assets\Code\Systems\DragNSnap\DropLocationList.cs" />
     <Compile Include="Assets\Code\Systems\DragNSnap\DragAndSnapEvents.cs" />
+    <Compile Include="Assets\Code\Systems\Tooltip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Code\Systems\DragNSnap\README.txt" />
