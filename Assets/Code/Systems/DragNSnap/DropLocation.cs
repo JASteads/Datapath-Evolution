@@ -8,7 +8,7 @@ public class DropLocation
     readonly int expectedState;
     int state;
 
-    DropLocation(Transform _target, int _expectedState)
+    public DropLocation(Transform _target, int _expectedState)
     {
         expectedState = _expectedState;
         tf = _target;
