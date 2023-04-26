@@ -1,28 +1,35 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject prefab;
-    GameObject menuObj;
-
-    public Button startButton, stageButton, creditButton, quitButton;
+    public GameObject prefab, stageSelect, creditsScreen;
+    List<GameObject> menuStack = new List<GameObject>();
+    GameObject currentMenu;
+    
+    Transform menu;
+    Button startButton, stageButton, creditButton, quitButton,
+        backButton;
 
     void Start()
     {
-        Instantiate(prefab, transform);
+        menu = Instantiate(prefab, transform).transform;
 
-        startButton = prefab.transform.
-            GetChild(3).GetComponent<Button>();
-        stageButton = prefab.transform.
-            GetChild(4).GetComponent<Button>();
-        creditButton = prefab.transform.
-            GetChild(5).GetComponent<Button>();
-        quitButton = prefab.transform.
-            GetChild(6).GetComponent<Button>();
+        startButton = menu.GetChild(3).GetComponent<Button>();
+        stageButton = menu.GetChild(4).GetComponent<Button>();
+        creditButton = menu.GetChild(5).GetComponent<Button>();
+        quitButton = menu.GetChild(6).GetComponent<Button>();
+
+        GameObject backButtonObj = InterfaceTool.ButtonSetup(
+            "Back Button", SysManager.canvas.transform, 
+            out Image bImg, out backButton, null, null);
 
         startButton.onClick.AddListener(() =>
-        { Debug.Log("Click"); });
+        {
+            SysManager.SetLevel(SysManager.GetStage1());
+            UnloadMenus();
+        });
         stageButton.onClick.AddListener(() =>
         { Debug.Log("Click"); });
         creditButton.onClick.AddListener(() =>
@@ -30,4 +37,9 @@ public class MainMenu : MonoBehaviour
         quitButton.onClick.AddListener(SysManager.Quit);
     }
 
+    void UnloadMenus()
+    {
+        Destroy(menu.gameObject);
+        Destroy(gameObject.GetComponent<MainMenu>());
+    }
 }
