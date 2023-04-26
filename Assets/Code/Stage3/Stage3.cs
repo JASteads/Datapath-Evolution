@@ -59,22 +59,31 @@ public class Stage3 : Level
     }
 
     private void CreatePhase1Objects() {
-        Dictionary<string, int> names = new Dictionary<string, int>();
-        names.Add("IF/ID", 0);
-        names.Add("ID/EX", 1);
-        names.Add("EX/MEM", 2);
-        names.Add("MEM/WB", 3);
         System.Random rand = new System.Random();
+        List<DropLocation> dropLocations = new List<DropLocation>();
+        //slots
+        for (int i = 0; i < 4; i++) {
+            Stage3P1SlotObject obj = new Stage3P1SlotObject(i, new Vector2((i * 250) - 375, 100), dropLocations);
+        }
+        //list
+        DropLocationList dropLocationList = new DropLocationList(dropLocations);
+        //draggables
+        List<string> names = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
+        List<string> persistentNames = names;
         int xPos = -375;
         while (names.Count > 0) {
-            string name = names.Keys.ElementAt(rand.Next(names.Count));
-            Stage3P1Object obj = new Stage3P1Object(name, names[name]);
-            InterfaceTool.FormatRect(obj.GetTF(), new Vector2(150, 150), new Vector2(xPos, -200));
-            Text text = InterfaceTool.CreateHeader(name, obj.GetTF(), new Vector2(0, 30), new Vector2(0, -90), 24);
-            text.alignment = TextAnchor.MiddleCenter;
-            text.color = Color.black;
-            names.Remove(name);
+            int index = rand.Next(names.Count);
+            string name = names[index];
+            Stage3P1DraggableObject obj = new Stage3P1DraggableObject(name, persistentNames.IndexOf(name), dropLocationList, new Vector2(xPos, -200));
+            names.RemoveAt(index);
             xPos += 250;
         }
+        //valid check
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Indexes", SysManager.canvas.transform, out Image winCheckImg, out Button button, null, () => {
+        });
+        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
+        winCheckImg.color = Color.gray;
+        Text txt = InterfaceTool.CreateHeader("Check Indexes", winCheckImg.transform, new Vector2(60, 20), new Vector2(35, -40), 16);
+        txt.color = Color.black;
     }
 }

@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Stage3P1SlotObject
+{
+    private Image image;
+
+    public Stage3P1SlotObject(int slot, Vector2 position, List<DropLocation> dropLocations) {
+        InterfaceTool.ImgSetup("Slot " + slot, SysManager.canvas.transform, out image, null, false);
+        InterfaceTool.FormatRect(image.rectTransform, new Vector2(180, 180), position);
+        image.color = Color.gray;
+        dropLocations.Add(new DropLocation(GetTF(), slot));
+    }
+
+    public RectTransform GetTF() {
+        return image.rectTransform;
+    }
+}
