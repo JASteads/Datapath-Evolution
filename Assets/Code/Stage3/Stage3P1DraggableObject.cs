@@ -7,8 +7,8 @@ public class Stage3P1DraggableObject
 {
     private Image image;
 
-    public Stage3P1DraggableObject(string name, int currentSlot, DropLocationList dropLocationList, Vector2 position) {
-        InterfaceTool.ImgSetup(name, SysManager.canvas.transform, out image, null, true);
+    public Stage3P1DraggableObject(GameObject levelObj, string name, int currentSlot, DropLocationList dropLocationList, Vector2 position) {
+        InterfaceTool.ImgSetup(name, levelObj.transform, out image, null, true);
         InterfaceTool.FormatRect(image.rectTransform, new Vector2(150, 150), position);
         Text text = InterfaceTool.CreateHeader(name, GetTF(), new Vector2(0, 30), new Vector2(0, -90), 24);
         text.alignment = TextAnchor.MiddleCenter;

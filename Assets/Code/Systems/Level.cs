@@ -29,4 +29,15 @@ public abstract class Level
     }
 
     public abstract bool CheckWinCondition();
+
+    protected void Destroy() {
+        GameObject.Destroy(levelObj);
+    }
+
+    protected void ResetObjects() {
+        Destroy();
+        levelObj = new GameObject("Stage");
+        levelObj.transform.SetParent(
+            SysManager.canvas.transform, false);
+    }
 }

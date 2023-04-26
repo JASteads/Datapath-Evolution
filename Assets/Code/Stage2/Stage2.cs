@@ -10,10 +10,8 @@ public class Stage2 : Level
     private List<Stage2Object> objects = new List<Stage2Object>();
     private Dictionary<ControlSignal, bool> expectedControlSignals = new Dictionary<ControlSignal, bool>(), currentControlSignals = new Dictionary<ControlSignal, bool>();
     private bool validControlSignals = false;
-    Transform parent;
 
-    public Stage2(string name, Transform parent, bool regDst, bool regWrite, bool pcSrc, bool aluSrc, bool memRead, bool memWrite, bool memToReg) : base(name) {
-        this.parent = parent;
+    public Stage2(string name, bool regDst, bool regWrite, bool pcSrc, bool aluSrc, bool memRead, bool memWrite, bool memToReg) : base(name) {
         expectedControlSignals.Add(ControlSignal.REG_DST, regDst);
         expectedControlSignals.Add(ControlSignal.REG_WRITE, regWrite);
         expectedControlSignals.Add(ControlSignal.PC_SRC, pcSrc);
@@ -55,7 +53,7 @@ public class Stage2 : Level
 
     public void AddLevelObject(Stage2Object levelObject) {
         objects.Add(levelObject);
-        levelObject.GetTF().SetParent(parent, false);
+        levelObject.GetTF().SetParent(levelObj.transform, false);
     }
 
     public void AddPreset(List<Stage2Object> objects) {
@@ -73,7 +71,7 @@ public class Stage2 : Level
     }
 
     private void CreateObjects() {
-        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", SysManager.canvas.transform, out Image descriptionImg, false);
+        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", levelObj.transform, out Image descriptionImg, false);
         InterfaceTool.FormatRect(descriptionImg.rectTransform, new Vector2(1200, 400), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
         descriptionImg.color = new Color(0.5F, 0.5F, 0.5F, 0.5F);
         Text descriptionText = InterfaceTool.CreateHeader("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.",
@@ -96,7 +94,7 @@ public class Stage2 : Level
 
     private void CreateControlObjects() {
         //control
-        GameObject controlObj = InterfaceTool.ImgSetup("Control", SysManager.canvas.transform, out Image controlImg, false);
+        GameObject controlObj = InterfaceTool.ImgSetup("Control", levelObj.transform, out Image controlImg, false);
         InterfaceTool.FormatRect(controlImg.rectTransform, new Vector2(300, 600), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
         controlImg.color = Color.gray;
         //signal toggles
@@ -109,7 +107,7 @@ public class Stage2 : Level
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Signals", controlImg.transform, out Image winCheckImg, out Button button, null, () => {
             CheckControlSignals();
             if (validControlSignals) {
-                GameObject.Destroy(controlObj);
+                ResetObjects();
                 CreateDatapathObjects();
             }
         });
@@ -140,16 +138,17 @@ public class Stage2 : Level
 
     private void CreateDatapathObjects() {
         // presets
-        AddLevelObject(Stage2ObjectPresests.CreatePC(-850, -150, false));
-        AddLevelObject(Stage2ObjectPresests.CreateInstructionMemory(-550, -150, false, false, false, false, false));
-        AddLevelObject(Stage2ObjectPresests.CreateSignExtend(-50, -420, false, false));
-        AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, -150, false, false, false, false, false, false));
-        AddLevelObject(Stage2ObjectPresests.CreateALU(300, -150, false, false, false));
-        AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, -150, false, false, false));
+        AddLevelObject(Stage2ObjectPresests.CreatePC(-850, -150, true));
+        AddLevelObject(Stage2ObjectPresests.CreateInstructionMemory(-550, -150, true, true, true, false, true));
+        AddLevelObject(Stage2ObjectPresests.CreateSignExtend(-50, -420, true, true));
+        AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, -150, true, true, false, false, true, true));
+        AddLevelObject(Stage2ObjectPresests.CreateALU(300, -150, true, true, true));
+        AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, -150, true, true, false));
 
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", SysManager.canvas.transform, out Image winCheckImg, out Button button, null, () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
             if (CheckWinCondition()) {
-                Debug.Log("level complete");
+                Destroy();
+                SysManager.currentLevel = new Stage3("Stage 3");
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(800, 450));

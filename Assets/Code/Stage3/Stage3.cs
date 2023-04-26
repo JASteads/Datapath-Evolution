@@ -9,8 +9,6 @@ public class Stage3 : Level
 {
     private static Vector2 DEF_VEC = new Vector2(0.5F, 0.5F);
 
-    private bool validPhase1 = false;
-
     public Stage3(string name) : base(name)
     {
         CreateObjects();
@@ -37,7 +35,7 @@ public class Stage3 : Level
     }
 
     private void CreateObjects() {
-        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", SysManager.canvas.transform, out Image descriptionImg, false);
+        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", levelObj.transform, out Image descriptionImg, false);
         InterfaceTool.FormatRect(descriptionImg.rectTransform, new Vector2(1200, 400), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
         descriptionImg.color = new Color(0.5F, 0.5F, 0.5F, 0.5F);
         Text descriptionText = InterfaceTool.CreateHeader("blah blah blah insert stage 3 description here.",
@@ -48,8 +46,7 @@ public class Stage3 : Level
         GameObject okayObj = InterfaceTool.ButtonSetup("Okay", descriptionObj.transform, out Image okayImg, out Button button, null, null);
         InterfaceTool.FormatRect(okayImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -100));
         button.onClick.AddListener(() => {
-            GameObject.Destroy(descriptionObj);
-            GameObject.Destroy(okayObj);
+            ResetObjects();
             CreatePhase1Objects();
         });
         okayImg.color = new Color(0.3F, 0.3F, 0.3F, 1);
@@ -63,23 +60,32 @@ public class Stage3 : Level
         List<DropLocation> dropLocations = new List<DropLocation>();
         //slots
         for (int i = 0; i < 4; i++) {
-            Stage3P1SlotObject obj = new Stage3P1SlotObject(i, new Vector2((i * 250) - 375, 100), dropLocations);
+            Stage3P1SlotObject obj = new Stage3P1SlotObject(levelObj, i, new Vector2((i * 250) - 375, 100), dropLocations);
         }
         //list
         DropLocationList dropLocationList = new DropLocationList(dropLocations);
         //draggables
         List<string> names = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
-        List<string> persistentNames = names;
+        List<string> persistentNames = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
         int xPos = -375;
         while (names.Count > 0) {
             int index = rand.Next(names.Count);
             string name = names[index];
-            Stage3P1DraggableObject obj = new Stage3P1DraggableObject(name, persistentNames.IndexOf(name), dropLocationList, new Vector2(xPos, -200));
+            Stage3P1DraggableObject obj = new Stage3P1DraggableObject(levelObj, name, persistentNames.IndexOf(name), dropLocationList, new Vector2(xPos, -200));
             names.RemoveAt(index);
             xPos += 250;
         }
         //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Indexes", SysManager.canvas.transform, out Image winCheckImg, out Button button, null, () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Indexes", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
+            bool valid = true;
+            dropLocationList.dLocations.ForEach(dropLocation => {
+                if (!dropLocation.IsCorrectState()) {
+                    valid = false;
+                }
+            });
+            if (valid) {
+                ResetObjects();
+            }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
         winCheckImg.color = Color.gray;
