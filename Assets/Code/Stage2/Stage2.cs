@@ -22,10 +22,8 @@ public class Stage2 : Level
             currentControlSignals.Add(signal, false);
         }
         //introduction
-        CreateIntroductionBox("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.", () => {
-            ResetObjects();
-            CreateControlObjects();
-        });
+        CreateIntroductionBox("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.",
+            CreateControlObjects);
     }
 
     public override bool CheckWinCondition() {

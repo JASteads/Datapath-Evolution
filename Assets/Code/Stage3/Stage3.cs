@@ -9,10 +9,8 @@ public class Stage3 : Level
 {
     public Stage3() : base("Stage 3")
     {
-        CreateIntroductionBox("blah blah blah insert stage 3 description here.", () => {
-            ResetObjects();
-            CreatePhase1Objects();
-        });
+        CreateIntroductionBox("blah blah blah insert stage 3 description here.",
+            CreatePhase1Objects);
     }
 
     public override void EnableTooltips()
