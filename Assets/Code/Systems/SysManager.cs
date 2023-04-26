@@ -54,7 +54,7 @@ public class SysManager
         return new Stage1();
     }
 
-    public static Level GetLevel2() {
+    public static Level GetStage2() {
         return new Stage2(true, false, false, true, false, true, false);
     }
 

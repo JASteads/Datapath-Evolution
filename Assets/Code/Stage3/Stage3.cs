@@ -31,20 +31,20 @@ public class Stage3 : Level
     private void CreatePhase1Objects() {
         System.Random rand = new System.Random();
         List<DropLocation> dropLocations = new List<DropLocation>();
+        int xPos = -375;
         //slots
         for (int i = 0; i < 4; i++) {
-            Stage3P1SlotObject obj = new Stage3P1SlotObject(levelObj, i, new Vector2((i * 250) - 375, 100), dropLocations);
+            SlotObject obj = new SlotObject(levelObj, i, new Vector2((i * 250) + xPos, 100), dropLocations);
         }
         //list
         DropLocationList dropLocationList = new DropLocationList(dropLocations);
         //draggables
         List<string> names = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
         List<string> persistentNames = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
-        int xPos = -375;
         while (names.Count > 0) {
             int index = rand.Next(names.Count);
             string name = names[index];
-            Stage3P1DraggableObject obj = new Stage3P1DraggableObject(levelObj, name, persistentNames.IndexOf(name), dropLocationList, new Vector2(xPos, -200));
+            DraggableObject obj = new DraggableObject(levelObj, name, persistentNames.IndexOf(name), dropLocationList, new Vector2(xPos, -200));
             names.RemoveAt(index);
             xPos += 250;
         }
