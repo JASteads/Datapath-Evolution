@@ -140,12 +140,23 @@ public class Stage2 : Level
 
     private void CreateDatapathObjects() {
         // presets
-        AddLevelObject(Stage2ObjectPresests.CreatePC(-850, -150, true));
-        AddLevelObject(Stage2ObjectPresests.CreateInstructionMemory(-550, -150, true, false, false, false, false));
-        AddLevelObject(Stage2ObjectPresests.CreateSignExtend(-50, -420, true, true));
-        AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, -150, true, true, false, false, true, false));
-        AddLevelObject(Stage2ObjectPresests.CreateALU(300, -150, true, true, true));
-        AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, -150, true, true, false));
+        AddLevelObject(Stage2ObjectPresests.CreatePC(-850, -150, false));
+        AddLevelObject(Stage2ObjectPresests.CreateInstructionMemory(-550, -150, false, false, false, false, false));
+        AddLevelObject(Stage2ObjectPresests.CreateSignExtend(-50, -420, false, false));
+        AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, -150, false, false, false, false, false, false));
+        AddLevelObject(Stage2ObjectPresests.CreateALU(300, -150, false, false, false));
+        AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, -150, false, false, false));
+
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", SysManager.canvas.transform, out Image winCheckImg, out Button button, null, () => {
+            if (CheckWinCondition()) {
+                Debug.Log("level complete");
+            }
+        });
+        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(800, 450));
+        winCheckImg.color = Color.gray;
+        Text txt = InterfaceTool.CreateHeader("Check Datapath", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
+        txt.alignment = TextAnchor.MiddleCenter;
+        txt.color = Color.black;
     }
 
     public enum ControlSignal {
