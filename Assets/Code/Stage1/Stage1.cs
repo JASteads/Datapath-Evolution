@@ -11,11 +11,6 @@ public class Stage1 : Level
         // Add locations
 
         dList = new DropLocationList(dLocations);
-    }    
-
-    public override void OnLevelStart()
-    {
-        Debug.Log("Activation on level start.");
     }
 
     public override void EnableTooltips()

@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Level
 {
+    protected static Vector2 DEF_VEC = new Vector2(0.5F, 0.5F);
+
     readonly string name;
     protected GameObject levelObj;
 
@@ -14,10 +17,6 @@ public abstract class Level
 
     public string GetName() {
         return name;
-    }
-
-    public virtual void OnLevelStart() {
-        Debug.Log("Activation on level start.");
     }
 
     public virtual void EnableTooltips() {
@@ -39,5 +38,23 @@ public abstract class Level
         levelObj = new GameObject("Stage");
         levelObj.transform.SetParent(
             SysManager.canvas.transform, false);
+    }
+
+    protected void CreateIntroductionBox(string description, UnityEngine.Events.UnityAction action) {
+        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", levelObj.transform, out Image descriptionImg, false);
+        InterfaceTool.FormatRect(descriptionImg.rectTransform, new Vector2(1200, 400), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
+        descriptionImg.color = new Color(0.5F, 0.5F, 0.5F, 0.5F);
+        Text descriptionText = InterfaceTool.CreateHeader(description,
+            descriptionImg.transform, new Vector2(0, 200), new Vector2(0, -250), 32);
+        descriptionText.alignment = TextAnchor.MiddleCenter;
+        descriptionText.color = Color.black;
+
+        GameObject okayObj = InterfaceTool.ButtonSetup("Okay", descriptionObj.transform, out Image okayImg, out Button button, null, null);
+        InterfaceTool.FormatRect(okayImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -100));
+        button.onClick.AddListener(action);
+        okayImg.color = new Color(0.3F, 0.3F, 0.3F, 1);
+        Text okayText = InterfaceTool.CreateHeader("Okay", okayImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
+        okayText.alignment = TextAnchor.MiddleCenter;
+        okayText.color = Color.black;
     }
 }

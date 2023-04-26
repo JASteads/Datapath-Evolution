@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Stage2 : Level
 {
-    private static Vector2 DEF_VEC = new Vector2(0.5F, 0.5F);
-
     private List<Stage2Object> objects = new List<Stage2Object>();
     private Dictionary<ControlSignal, bool> expectedControlSignals = new Dictionary<ControlSignal, bool>(), currentControlSignals = new Dictionary<ControlSignal, bool>();
     private bool validControlSignals = false;
@@ -23,22 +21,15 @@ public class Stage2 : Level
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
             currentControlSignals.Add(signal, false);
         }
-        //create objects
-        CreateObjects();
+        //introduction
+        CreateIntroductionBox("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.", () => {
+            ResetObjects();
+            CreateControlObjects();
+        });
     }
 
     public override bool CheckWinCondition() {
-        if (!validControlSignals) {
-            return false;
-        }
-        foreach (Stage2Object obj in objects) {
-            foreach (Stage2ObjectNode node in obj.GetNodes()) {
-                if (node.GetCurrentState() != node.GetExpectedState()) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return false;
     }
 
     public void CheckControlSignals() {
@@ -68,28 +59,6 @@ public class Stage2 : Level
             }
         });
         return found;
-    }
-
-    private void CreateObjects() {
-        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", levelObj.transform, out Image descriptionImg, false);
-        InterfaceTool.FormatRect(descriptionImg.rectTransform, new Vector2(1200, 400), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
-        descriptionImg.color = new Color(0.5F, 0.5F, 0.5F, 0.5F);
-        Text descriptionText = InterfaceTool.CreateHeader("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.",
-            descriptionImg.transform, new Vector2(0, 200), new Vector2(0, -250), 32);
-        descriptionText.alignment = TextAnchor.MiddleCenter;
-        descriptionText.color = Color.black;
-
-        GameObject okayObj = InterfaceTool.ButtonSetup("Okay", descriptionObj.transform, out Image okayImg, out Button button, null, null);
-        InterfaceTool.FormatRect(okayImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -100));
-        button.onClick.AddListener(() => {
-            GameObject.Destroy(descriptionObj);
-            GameObject.Destroy(okayObj);
-            CreateControlObjects();
-        });
-        okayImg.color = new Color(0.3F, 0.3F, 0.3F, 1);
-        Text okayText = InterfaceTool.CreateHeader("Okay", okayImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
-        okayText.alignment = TextAnchor.MiddleCenter;
-        okayText.color = Color.black;
     }
 
     private void CreateControlObjects() {
@@ -146,7 +115,15 @@ public class Stage2 : Level
         AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, -150, true, true, false));
 
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
-            if (CheckWinCondition()) {
+            bool valid = true;
+            foreach (Stage2Object obj in objects) {
+                foreach (Stage2ObjectNode node in obj.GetNodes()) {
+                    if (node.GetCurrentState() != node.GetExpectedState()) {
+                        valid = false;
+                    }
+                }
+            }
+            if (valid) {
                 Destroy();
                 SysManager.SetLevel(SysManager.GetStage3());
             }

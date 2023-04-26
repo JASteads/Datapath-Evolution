@@ -7,16 +7,12 @@ using UnityEngine.UI;
 
 public class Stage3 : Level
 {
-    private static Vector2 DEF_VEC = new Vector2(0.5F, 0.5F);
-
     public Stage3() : base("Stage 3")
     {
-        CreateObjects();
-    }
-
-    public override void OnLevelStart()
-    {
-        Debug.Log("Activation on level start.");
+        CreateIntroductionBox("blah blah blah insert stage 3 description here.", () => {
+            ResetObjects();
+            CreatePhase1Objects();
+        });
     }
 
     public override void EnableTooltips()
@@ -32,27 +28,6 @@ public class Stage3 : Level
     public override bool CheckWinCondition()
     {
         return false;
-    }
-
-    private void CreateObjects() {
-        GameObject descriptionObj = InterfaceTool.ImgSetup("Okay", levelObj.transform, out Image descriptionImg, false);
-        InterfaceTool.FormatRect(descriptionImg.rectTransform, new Vector2(1200, 400), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
-        descriptionImg.color = new Color(0.5F, 0.5F, 0.5F, 0.5F);
-        Text descriptionText = InterfaceTool.CreateHeader("blah blah blah insert stage 3 description here.",
-            descriptionImg.transform, new Vector2(0, 200), new Vector2(0, -250), 32);
-        descriptionText.alignment = TextAnchor.MiddleCenter;
-        descriptionText.color = Color.black;
-
-        GameObject okayObj = InterfaceTool.ButtonSetup("Okay", descriptionObj.transform, out Image okayImg, out Button button, null, null);
-        InterfaceTool.FormatRect(okayImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -100));
-        button.onClick.AddListener(() => {
-            ResetObjects();
-            CreatePhase1Objects();
-        });
-        okayImg.color = new Color(0.3F, 0.3F, 0.3F, 1);
-        Text okayText = InterfaceTool.CreateHeader("Okay", okayImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
-        okayText.alignment = TextAnchor.MiddleCenter;
-        okayText.color = Color.black;
     }
 
     private void CreatePhase1Objects() {
