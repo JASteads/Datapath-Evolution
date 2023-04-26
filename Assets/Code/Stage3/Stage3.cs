@@ -9,7 +9,7 @@ public class Stage3 : Level
 {
     public Stage3() : base("Stage 3")
     {
-        CreateIntroductionBox("blah blah blah insert stage 3 description here.",
+        CreateIntroductionBox("In this stage, you will need to set the pipeline states in the correct positions, and optimize them to improve the performance.",
             CreatePhase1Objects);
     }
 
