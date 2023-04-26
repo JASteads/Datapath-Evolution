@@ -8,11 +8,7 @@ public class Stage1 : Level
     DropLocationList dList;
 
     public Stage1() : base("Stage 1")
-    {
-        List<DropLocation> dLocations = new List<DropLocation>();
-        // Add locations
-
-        dList = new DropLocationList(dLocations);
+    {   
         CreateIntroductionBox("In this stage, the player will need to assemble a single datapath by dragging different components into empty fields. The goal is to correctly assemble the datapath that will allow the user to understand the execution of datapath instructions.",
             CreateStage1Objects);
     }
@@ -34,7 +30,14 @@ public class Stage1 : Level
 
     public void CreateStage1Objects()
     {
+        List<DropLocation> dropLocations = new List<DropLocation>();
+        
+        for (int i = 0; i < 5; i++)
+        {
+            Stage1SlotObject obj = new Stage1SlotObject(levelObj, i, new Vector2((i * 250) - 375, 100), dropLocations);
+        }
 
+        DropLocationList dropLocationList = new DropLocationList(dropLocations);
     }
 }
 

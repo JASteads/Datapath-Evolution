@@ -34,7 +34,7 @@ public class SysManager
             "Main Canvas", null, out canvas);
         // clickCanvasObj.AddComponent<MainMenu>();
 
-        SetLevel(GetLevel2());
+        SetLevel(GetStage1());
     }
 
     public static void Quit()
@@ -50,6 +50,10 @@ public class SysManager
             currentLevel.Destroy();
         }
         currentLevel = level;
+    }
+
+    public static Level GetStage1() {
+        return new Stage1();
     }
 
     public static Level GetLevel2() {
