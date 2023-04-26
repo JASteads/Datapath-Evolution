@@ -2,10 +2,14 @@ using UnityEngine;
 
 public abstract class Level
 {
-    private string name;
+    readonly string name;
+    protected GameObject levelObj;
 
     public Level(string name) {
         this.name = name;
+        levelObj = new GameObject("Stage");
+        levelObj.transform.SetParent(
+            SysManager.canvas.transform, false);
     }
 
     public string GetName() {

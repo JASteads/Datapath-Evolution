@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public GameObject prefab;
+    GameObject menuObj;
 
     public Button startButton, stageButton, creditButton, quitButton;
 
