@@ -4,16 +4,15 @@ using UnityEngine.EventSystems;
 
 public class DragAndSnapEvent
 {
-    readonly RectTransform target;
-    readonly Button button;
+    readonly Transform target;
     readonly DropLocationList dList;
+    Vector2 screenOffset;
 
-    public DragAndSnapEvent(Button _button,
+    public DragAndSnapEvent(Transform _target,
         DropLocationList _dList)
     {
-        button = _button;
         dList = _dList;
-        target = button.image.rectTransform;
+        target = _target;
 
         EventTrigger.Entry dragStart = new EventTrigger.Entry
         { eventID = EventTriggerType.BeginDrag },
@@ -38,16 +37,22 @@ public class DragAndSnapEvent
 
     void StartDrag(PointerEventData data)
     {
-
+        screenOffset = new Vector2(Screen.width, Screen.height) / 2;
+        Debug.Log("Start");
     }
 
     void UpdateDrag(PointerEventData data)
     {
-        target.position = data.position;
+        Debug.Log("Update");
+        target.localPosition = data.position - screenOffset;
     }
 
     void EndDrag(PointerEventData data)
     {
+        Debug.Log("End");
+
+        if (dList == null) return;
+
         DropLocation dropLocation = 
             dList.SearchLocations(data.pointerEnter.transform);
 

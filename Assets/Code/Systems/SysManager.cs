@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SysManager
 {
@@ -34,6 +35,17 @@ public class SysManager
         // clickCanvasObj.AddComponent<MainMenu>();
 
         currentLevel = new Stage3("Stage 3");
+
+        GameObject testObj = InterfaceTool.ImgSetup("Test",
+            canvas.transform, out Image img, true);
+        InterfaceTool.FormatRectNPos(img.rectTransform,
+            new Vector2(50, 50), new Vector2(0.5f, 0.5f),
+            new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        DragAndSnapEvent dse = new DragAndSnapEvent(testObj.transform, null);
+        // clickCanvasObj.AddComponent<MainMenu>();
+
+        currentLevel = new Stage3("Stage 3");
+
     }
 
     public static void Quit()
