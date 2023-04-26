@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DropLocationList
 {
-    List<DropLocation> dLocations;
+    public List<DropLocation> dLocations;
 
     public DropLocationList(List<DropLocation> dList)
     {

@@ -4,11 +4,13 @@ using UnityEngine.EventSystems;
 
 public class DragAndSnapEvent
 {
-    readonly Transform target;
+    readonly Transform target, parent;
     readonly DropLocationList dList;
     readonly int state;
+
     Graphic rayTarget;
     Vector2 screenOffset, startPos;
+    DropLocation dropLocation;
 
     public DragAndSnapEvent(Graphic _target,
         DropLocationList _dList, int _state)
@@ -17,6 +19,8 @@ public class DragAndSnapEvent
         rayTarget = _target;
         target = _target.transform;
         state = _state;
+
+        parent = target.parent;
 
         EventTrigger.Entry dragStart = new EventTrigger.Entry
         { eventID = EventTriggerType.BeginDrag },
@@ -41,6 +45,12 @@ public class DragAndSnapEvent
 
     void StartDrag(PointerEventData data)
     {
+        if (dropLocation != null)
+        {
+            dropLocation = null;
+            target.SetParent(parent, false);
+        }   
+
         rayTarget.raycastTarget = false;
         screenOffset = new Vector2(Screen.width, Screen.height) / 2;
         startPos = target.localPosition;
@@ -61,8 +71,8 @@ public class DragAndSnapEvent
             return;
         }
 
-        DropLocation dropLocation = 
-            dList.SearchLocations(data.pointerEnter.transform);
+        dropLocation = dList.SearchLocations
+            (data.pointerEnter.transform);
 
         if (dropLocation.GetTF().tag != "Drag Object")
         {
