@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class DragAndSnapEvent
 {
     readonly RectTransform target;
+    readonly Button button;
     readonly DropLocationList dList;
 
-    public DragAndSnapEvent(RectTransform _target,
+    public DragAndSnapEvent(Button _button,
         DropLocationList _dList)
     {
-        target = _target;
+        button = _button;
         dList = _dList;
+        target = button.image.rectTransform;
 
         EventTrigger.Entry dragStart = new EventTrigger.Entry
         { eventID = EventTriggerType.BeginDrag },

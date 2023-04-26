@@ -31,12 +31,8 @@ public class SysManager
 
         GameObject clickCanvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
+        clickCanvasObj.AddComponent<MainMenu>();
 
-        /*** Test instance of Stage 2 ***/
-
-        currentLevel = new Stage2("Stage 2", clickCanvasObj.transform, true, false, false, true, false, true, false);
-
-        /***   End of Test Stage 2   ***/
     }
 
     public static void Quit()
