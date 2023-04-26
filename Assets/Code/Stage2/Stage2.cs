@@ -11,7 +11,7 @@ public class Stage2 : Level
     private Dictionary<ControlSignal, bool> expectedControlSignals = new Dictionary<ControlSignal, bool>(), currentControlSignals = new Dictionary<ControlSignal, bool>();
     private bool validControlSignals = false;
 
-    public Stage2(string name, bool regDst, bool regWrite, bool pcSrc, bool aluSrc, bool memRead, bool memWrite, bool memToReg) : base(name) {
+    public Stage2(bool regDst, bool regWrite, bool pcSrc, bool aluSrc, bool memRead, bool memWrite, bool memToReg) : base("Stage 2") {
         expectedControlSignals.Add(ControlSignal.REG_DST, regDst);
         expectedControlSignals.Add(ControlSignal.REG_WRITE, regWrite);
         expectedControlSignals.Add(ControlSignal.PC_SRC, pcSrc);
@@ -148,7 +148,7 @@ public class Stage2 : Level
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
             if (CheckWinCondition()) {
                 Destroy();
-                SysManager.currentLevel = new Stage3("Stage 3");
+                SysManager.SetLevel(SysManager.GetStage3());
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(800, 450));

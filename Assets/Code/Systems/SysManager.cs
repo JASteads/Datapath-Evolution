@@ -34,7 +34,7 @@ public class SysManager
             "Main Canvas", null, out canvas);
         // clickCanvasObj.AddComponent<MainMenu>();
 
-        currentLevel = new Stage2("Level 2", true, false, false, true, false, true, false);
+        SetLevel(GetLevel2());
     }
 
     public static void Quit()
@@ -43,5 +43,20 @@ public class SysManager
         UnityEditor.EditorApplication.ExitPlaymode();
 #endif
         Application.Quit();
+    }
+
+    public static void SetLevel(Level level) {
+        if (currentLevel != null) {
+            currentLevel.Destroy();
+        }
+        currentLevel = level;
+    }
+
+    public static Level GetLevel2() {
+        return new Stage2(true, false, false, true, false, true, false);
+    }
+
+    public static Level GetStage3() {
+        return new Stage3();
     }
 }

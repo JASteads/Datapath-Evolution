@@ -9,7 +9,7 @@ public class Stage3 : Level
 {
     private static Vector2 DEF_VEC = new Vector2(0.5F, 0.5F);
 
-    public Stage3(string name) : base(name)
+    public Stage3() : base("Stage 3")
     {
         CreateObjects();
     }

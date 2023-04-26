@@ -30,7 +30,7 @@ public abstract class Level
 
     public abstract bool CheckWinCondition();
 
-    protected void Destroy() {
+    public void Destroy() {
         GameObject.Destroy(levelObj);
     }
 
