@@ -6,7 +6,7 @@ public class DragAndSnapEvent
 {
     readonly Transform target;
     readonly DropLocationList dList;
-    Vector2 screenOffset;
+    Vector2 screenOffset, startPos;
 
     public DragAndSnapEvent(Transform _target,
         DropLocationList _dList)
@@ -38,20 +38,21 @@ public class DragAndSnapEvent
     void StartDrag(PointerEventData data)
     {
         screenOffset = new Vector2(Screen.width, Screen.height) / 2;
-        Debug.Log("Start");
+        startPos = target.localPosition;
     }
 
     void UpdateDrag(PointerEventData data)
     {
-        Debug.Log("Update");
         target.localPosition = data.position - screenOffset;
     }
 
     void EndDrag(PointerEventData data)
     {
-        Debug.Log("End");
-
-        if (dList == null) return;
+        if (dList == null)
+        {
+            target.localPosition = startPos;
+            return;
+        }
 
         DropLocation dropLocation = 
             dList.SearchLocations(data.pointerEnter.transform);
@@ -61,5 +62,6 @@ public class DragAndSnapEvent
             Debug.Log("Snapping");
             target.SetParent(dropLocation.GetTF(), false);
         }
+        else target.localPosition = startPos;
     }
 }
