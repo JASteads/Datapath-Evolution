@@ -24,6 +24,10 @@ public class Stage2Object
         return image.rectTransform;
     }
 
+    public Image GetImage() {
+        return image;
+    }
+
     public void SetImage(Image image) {
         this.image = image;
     }
