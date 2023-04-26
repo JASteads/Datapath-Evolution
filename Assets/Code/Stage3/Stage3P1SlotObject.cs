@@ -8,7 +8,7 @@ public class Stage3P1SlotObject
     private Image image;
 
     public Stage3P1SlotObject(int slot, Vector2 position, List<DropLocation> dropLocations) {
-        InterfaceTool.ImgSetup("Slot " + slot, SysManager.canvas.transform, out image, null, false);
+        InterfaceTool.ImgSetup("Slot " + slot, SysManager.canvas.transform, out image, null, true);
         InterfaceTool.FormatRect(image.rectTransform, new Vector2(180, 180), position);
         image.color = Color.gray;
         dropLocations.Add(new DropLocation(GetTF(), slot));

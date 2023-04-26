@@ -21,9 +21,11 @@ public class MainMenu : MonoBehaviour
             GetChild(6).GetComponent<Button>();
 
         startButton.onClick.AddListener(() =>
-        {
-            Debug.Log("Click");
-        });
+        { Debug.Log("Click"); });
+        stageButton.onClick.AddListener(() =>
+        { Debug.Log("Click"); });
+        creditButton.onClick.AddListener(() =>
+        { Debug.Log("Click"); });
         quitButton.onClick.AddListener(SysManager.Quit);
     }
 

@@ -66,8 +66,8 @@ public class DragAndSnapEvent
 
         if (dropLocation.GetTF().tag != "Drag Object")
         {
-            Debug.Log("Snapping");
             target.SetParent(dropLocation.GetTF(), false);
+            target.localPosition = Vector2.zero;
             dropLocation.SetState(state);
             
         }

@@ -70,7 +70,8 @@
     <Compile Include="Assets\Code\Systems\DragNSnap\DragAndSnapEvent.cs" />
     <Compile Include="Assets\Code\Systems\Level.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2ObjectNode.cs" />
-    <Compile Include="Assets\Code\Stage3\Stage3P1Object.cs" />
+    <Compile Include="Assets\Code\Stage3\Stage3P1DraggableObject.cs" />
+    <Compile Include="Assets\Code\Stage3\Stage3P1SlotObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Code\Systems\DragNSnap\README.txt" />
