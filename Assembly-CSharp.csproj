@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{C78FE663-2223-67C6-7F78-F79B1487BF1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -55,21 +54,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Stage2\Stage2Object.cs" />
+    <Compile Include="Assets\Code\Stage3\Stage3.cs" />
+    <Compile Include="Assets\Code\Stage3\Diagram.cs" />
+    <Compile Include="Assets\Code\Systems\DragNSnap\DropLocationList.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2.cs" />
+    <Compile Include="Assets\Code\Systems\DragNSnap\DropLocation.cs" />
     <Compile Include="Assets\Code\Systems\InterfaceTool.cs" />
     <Compile Include="Assets\Code\Stage2\ConnectWire.cs" />
     <Compile Include="Assets\Code\Systems\SysManager.cs" />
-    <Compile Include="Assets\Code\Stage2\LevelObjectPresets.cs" />
+    <Compile Include="Assets\Code\Systems\MainMenu.cs" />
+    <Compile Include="Assets\Code\Stage1\Stage1.cs" />
+    <Compile Include="Assets\Code\Systems\Tooltip.cs" />
+    <Compile Include="Assets\Code\Stage2\Stage2ObjectPresets.cs" />
+    <Compile Include="Assets\Code\Systems\DragNSnap\DragAndSnapEvents.cs" />
     <Compile Include="Assets\Code\Systems\Level.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2ObjectNode.cs" />
-    <Compile Include="Assets\Code\Stage3\Diagram.cs" />
-    <Compile Include="Assets\Code\Systems\MainMenu.cs" />
-    <Compile Include="Assets\Code\Stage3\Stage3.cs" />
-    <Compile Include="Assets\Code\Stage1\Stage1.cs" />
-    <Compile Include="Assets\Code\Systems\DragNSnap\DropLocation.cs" />
-    <Compile Include="Assets\Code\Systems\DragNSnap\DropLocationList.cs" />
-    <Compile Include="Assets\Code\Systems\DragNSnap\DragAndSnapEvents.cs" />
-    <Compile Include="Assets\Code\Systems\Tooltip.cs" />
+    <Compile Include="Assets\Code\Systems\TooltipLibrary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Code\Systems\DragNSnap\README.txt" />
