@@ -39,6 +39,7 @@ public class MainMenu : MonoBehaviour
 
     void UnloadMenus()
     {
+        Destroy(backButton.gameObject);
         Destroy(menu.gameObject);
         Destroy(gameObject.GetComponent<MainMenu>());
     }
