@@ -38,7 +38,7 @@ public class SysManager
         InterfaceTool.FormatRectNPos(img.rectTransform,
             new Vector2(50, 50), new Vector2(0.5f, 0.5f),
             new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-        DragAndSnapEvent dse = new DragAndSnapEvent(testObj.transform, null);
+        DragAndSnapEvent dse = new DragAndSnapEvent(img, null);
     }
 
     public static void Quit()

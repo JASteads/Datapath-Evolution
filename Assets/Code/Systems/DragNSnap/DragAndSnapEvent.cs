@@ -6,13 +6,15 @@ public class DragAndSnapEvent
 {
     readonly Transform target;
     readonly DropLocationList dList;
+    Graphic rayTarget;
     Vector2 screenOffset, startPos;
 
-    public DragAndSnapEvent(Transform _target,
+    public DragAndSnapEvent(Graphic _target,
         DropLocationList _dList)
     {
         dList = _dList;
-        target = _target;
+        rayTarget = _target;
+        target = _target.transform;
 
         EventTrigger.Entry dragStart = new EventTrigger.Entry
         { eventID = EventTriggerType.BeginDrag },
@@ -37,6 +39,7 @@ public class DragAndSnapEvent
 
     void StartDrag(PointerEventData data)
     {
+        rayTarget.raycastTarget = false;
         screenOffset = new Vector2(Screen.width, Screen.height) / 2;
         startPos = target.localPosition;
     }
@@ -48,6 +51,8 @@ public class DragAndSnapEvent
 
     void EndDrag(PointerEventData data)
     {
+        rayTarget.raycastTarget = true;
+
         if (dList == null)
         {
             target.localPosition = startPos;
@@ -63,5 +68,6 @@ public class DragAndSnapEvent
             target.SetParent(dropLocation.GetTF(), false);
         }
         else target.localPosition = startPos;
+        
     }
 }
