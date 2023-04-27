@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Stage3 : Level
 {
+    private Diagram diagram;
+
     public Stage3() : base("Stage 3")
     {
         CreateIntroductionBox("In this stage, you will need to set the pipeline states in the correct positions, and optimize them to improve the performance.",
@@ -58,6 +60,9 @@ public class Stage3 : Level
             });
             if (valid) {
                 ResetObjects();
+                diagram = levelObj.AddComponent<Diagram>();
+                diagram.obj.transform.SetParent(levelObj.transform, false);
+                diagram.obj.transform.localPosition = Vector3.zero;
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
