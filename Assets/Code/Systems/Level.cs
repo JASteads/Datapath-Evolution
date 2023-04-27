@@ -14,7 +14,7 @@ public abstract class Level
         levelObj = new GameObject("Stage");
         levelObj.transform.SetParent(
             SysManager.canvas.transform, false);
-        SysManager.tooltip.SetActive(true);
+        SysManager.tooltip.SetActive(false);
     }
 
     public string GetName() {
@@ -62,5 +62,37 @@ public abstract class Level
         Text okayText = InterfaceTool.CreateHeader("Okay", okayImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
         okayText.alignment = TextAnchor.MiddleCenter;
         okayText.color = Color.black;
+    }
+
+    protected void CreateWinScreen(string description, Action nextLevel) {
+        GameObject winObj = InterfaceTool.ImgSetup("You Win!", levelObj.transform, out Image winImg, false);
+        InterfaceTool.FormatRect(winImg.rectTransform, new Vector2(1200, 400), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
+        winImg.color = new Color(0.25F, 0.25F, 0.25F);
+        Text winText = InterfaceTool.CreateHeader("You Win!",
+            winImg.transform, new Vector2(0, 200), new Vector2(0, -250), 32);
+        winText.alignment = TextAnchor.MiddleCenter;
+        //next level
+        GameObject nextObj = InterfaceTool.ButtonSetup(description, winObj.transform, out Image nextImg, out Button nextButton, null, null);
+        InterfaceTool.FormatRect(nextImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(150, -100));
+        nextButton.onClick.AddListener(() => {
+            GameObject.Destroy(nextObj);
+            nextLevel.Invoke();
+        });
+        nextImg.color = new Color(0.5F, 0.5F, 0.5F);
+        Text nextText = InterfaceTool.CreateHeader(description, nextImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
+        nextText.alignment = TextAnchor.MiddleCenter;
+        nextText.color = Color.black;
+        //review level
+        GameObject reviewObject = InterfaceTool.ButtonSetup("Review Level", winObj.transform, out Image reviewImage, out Button reviewButton, null, () => {
+            nextObj.transform.SetParent(SysManager.canvas.transform);
+            InterfaceTool.FormatRect(nextImg.rectTransform, nextImg.rectTransform.sizeDelta, new Vector2(1, 0), new Vector2(1, 0), new Vector2(1, 0), new Vector2(-20, 20));
+            winObj.SetActive(false);
+            SysManager.tooltip.SetActive(true);
+        });
+        InterfaceTool.FormatRect(reviewImage.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(-150, -100));
+        reviewImage.color = new Color(0.5F, 0.5F, 0.5F);
+        Text reviewText = InterfaceTool.CreateHeader("Review Level", reviewImage.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
+        reviewText.alignment = TextAnchor.MiddleCenter;
+        reviewText.color = Color.black;
     }
 }

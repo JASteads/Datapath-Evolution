@@ -57,8 +57,9 @@ public class Stage1 : Level
                 }
             }
             if (valid) {
-                ResetObjects();
-                SysManager.SetLevel(SysManager.GetStage2());
+                CreateWinScreen("To Stage 2", () => {
+                    SysManager.SetLevel(SysManager.GetStage2());
+                });
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));

@@ -24,6 +24,8 @@ public class Stage2 : Level
         //introduction
         CreateIntroductionBox("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.",
             CreateControlObjects);
+
+        SysManager.tooltip.SetActive(true);
     }
 
     public override bool CheckWinCondition() {
@@ -79,6 +81,7 @@ public class Stage2 : Level
             if (validControlSignals) {
                 ResetObjects();
                 CreateDatapathObjects();
+                SysManager.tooltip.SetActive(false);
             }
             else {
                 descriptions.text = "";
@@ -134,8 +137,9 @@ public class Stage2 : Level
                 }
             }
             if (valid) {
-                Destroy();
-                SysManager.SetLevel(SysManager.GetStage3());
+                CreateWinScreen("To Stage 3", () => {
+                    SysManager.SetLevel(SysManager.GetStage3());
+                });
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));

@@ -36,6 +36,9 @@ public class Tooltip
     {
         isActive = _isActive;
         if (isActive) tf.SetAsLastSibling();
+        if (!isActive) {
+            tf.gameObject.SetActive(false);
+        }
     }
 
     public void AssignTooltip(Transform target)
