@@ -38,8 +38,8 @@ public class Stage1 : Level
         //list
         DropLocationList dropLocationList = new DropLocationList(dropLocations);
         //draggables
-        List<string> names = new List<string>{"PC", "Instruction\nMemory", "Register File", "ALU", "Data\nMemory"};
-        List<string> persistentNames = new List<string>{"PC", "Instruction\nMemory", "Register File", "ALU", "Data\nMemory"};
+        List<string> names = new List<string>{"PC", "Instruction\nMemory", "Register\nFile", "ALU", "Data\nMemory"};
+        List<string> persistentNames = new List<string>{"PC", "Instruction\nMemory", "Register\nFile", "ALU", "Data\nMemory"};
         while (names.Count > 0) {
             int index = rand.Next(names.Count);
             string name = names[index];
