@@ -50,11 +50,12 @@ public class Stage1 : Level
         //valid check
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
             bool valid = true;
-            dropLocationList.dLocations.ForEach(dropLocation => {
+            foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
                     valid = false;
+                    break;
                 }
-            });
+            }
             if (valid) {
                 ResetObjects();
                 SysManager.SetLevel(SysManager.GetStage2());

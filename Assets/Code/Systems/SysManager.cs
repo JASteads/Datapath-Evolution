@@ -5,7 +5,7 @@ public class SysManager
 {
     public static Camera mainCam;
     public static Canvas canvas;
-    public static GameObject quitObj;
+    public static GameObject canvasObj, quitObj;
     public static readonly Font DEFAULT_FONT;
     public static readonly Sprite DEFAULT_BUTTON;
     public static Sprite[] sprites;
@@ -30,13 +30,12 @@ public class SysManager
         mainCam.orthographic = true;
         mainCam.backgroundColor = new Color(0.2f, 0.2f, 0.5f);
 
-        GameObject canvasObj = InterfaceTool.CanvasSetup(
+        canvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
         canvasObj.AddComponent<MainMenu>();
 
         quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform, out Image quitImg, out Button quitButton, null, () => {
             SetLevel(null);
-            canvasObj.AddComponent<MainMenu>();
             quitObj.SetActive(false);
         });
         InterfaceTool.FormatRect(quitImg.rectTransform, new Vector2(180, 60), Level.DEF_VEC, Level.DEF_VEC, Level.DEF_VEC, new Vector2(-825, 475));
@@ -60,6 +59,9 @@ public class SysManager
             currentLevel.Destroy();
         }
         currentLevel = level;
+        if (level == null) {
+            canvasObj.AddComponent<MainMenu>();
+        }
     }
 
     public static Level GetStage1() {

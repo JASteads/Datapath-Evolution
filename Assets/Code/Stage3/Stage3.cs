@@ -53,16 +53,43 @@ public class Stage3 : Level
         //valid check
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
             bool valid = true;
-            dropLocationList.dLocations.ForEach(dropLocation => {
+            foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
                     valid = false;
+                    break;
                 }
-            });
+            }
             if (valid) {
                 ResetObjects();
-                diagram = levelObj.AddComponent<Diagram>();
-                diagram.obj.transform.SetParent(levelObj.transform, false);
-                diagram.obj.transform.localPosition = Vector3.zero;
+                CreatePhase2Objects();
+            }
+        });
+        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
+        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.black;
+    }
+
+    private void CreatePhase2Objects() {
+        //diagram
+        diagram = levelObj.AddComponent<Diagram>();
+        diagram.obj.transform.SetParent(levelObj.transform, false);
+        diagram.obj.transform.localPosition = new Vector3(0, 70, 0);
+        diagram.slots[0] = new Slot(0);
+        diagram.slots[1] = new Slot(2);
+        diagram.slots[2] = new Slot(3);
+        diagram.slots[3] = new Slot(4);
+        //valid check
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
+            bool valid = true;
+            foreach (Slot slot in diagram.slots) {
+                if (!slot.CheckPosition()) {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid) {
+                SysManager.SetLevel(null);
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
