@@ -105,12 +105,12 @@ public class Stage2 : Level
 
     private void CreateDatapathObjects() {
         // presets
-        AddLevelObject(Stage2ObjectPresests.CreatePC(-850, -150, true));
-        AddLevelObject(Stage2ObjectPresests.CreateInstructionMemory(-550, -150, true, true, true, false, true));
-        AddLevelObject(Stage2ObjectPresests.CreateSignExtend(-50, -420, true, true));
-        AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, -150, true, true, false, false, true, true));
-        AddLevelObject(Stage2ObjectPresests.CreateALU(300, -150, true, true, true));
-        AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, -150, true, true, false));
+        AddLevelObject(Stage2ObjectPresests.CreatePC(-850, 100, true));
+        AddLevelObject(Stage2ObjectPresests.CreateInstructionMemory(-550, 100, true, true, true, false, true));
+        AddLevelObject(Stage2ObjectPresests.CreateSignExtend(-50, -170, true, true));
+        AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, 100, true, true, false, false, true, true));
+        AddLevelObject(Stage2ObjectPresests.CreateALU(300, 100, true, true, true));
+        AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, 100, true, true, false));
 
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
             bool valid = true;
@@ -126,7 +126,7 @@ public class Stage2 : Level
                 SysManager.SetLevel(SysManager.GetStage3());
             }
         });
-        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(800, 450));
+        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
         winCheckImg.color = Color.gray;
         Text txt = InterfaceTool.CreateHeader("Check Datapath", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
         txt.alignment = TextAnchor.MiddleCenter;
