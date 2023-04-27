@@ -54,6 +54,7 @@ public class SysManager
         // go to main menu
         if (level == null) {
             canvasObj.AddComponent<MainMenu>();
+            quitObj.SetActive(false);
         }
     }
 
@@ -74,7 +75,6 @@ public class SysManager
         quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform,
             out Image quitImg, out Button quitButton, null, () => {
             SetLevel(null);
-            quitObj.SetActive(false);
         });
         InterfaceTool.FormatRect(quitImg.rectTransform,
             new Vector2(180, 60), Level.DEF_VEC,
