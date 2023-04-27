@@ -61,9 +61,8 @@ public class Stage2 : Level
 
     private void CreateControlObjects() {
         //control
-        GameObject controlObj = InterfaceTool.ImgSetup("Control", levelObj.transform, out Image controlImg, false);
+        GameObject controlObj = InterfaceTool.ImgSetup("Control", levelObj.transform, out Image controlImg, SysManager.sprites[11], false);
         InterfaceTool.FormatRect(controlImg.rectTransform, new Vector2(300, 600), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
-        controlImg.color = Color.gray;
         //signal toggles
         int yOffset = 240;
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
@@ -71,7 +70,7 @@ public class Stage2 : Level
             yOffset -= 80;
         }
         //control signal check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Signals", controlImg.transform, out Image winCheckImg, out Button button, null, () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
             CheckControlSignals();
             if (validControlSignals) {
                 ResetObjects();
@@ -79,27 +78,27 @@ public class Stage2 : Level
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        winCheckImg.color = Color.gray;
-        Text txt = InterfaceTool.CreateHeader("Check Signals", winCheckImg.transform, new Vector2(60, 20), new Vector2(35, -40), 16);
-        txt.color = Color.black;
+        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.black;
     }
 
     private GameObject CreateControlToggle(ControlSignal signal, Image controlImg, int yOffset) {
         String name = signal.ToString();
-        GameObject obj = InterfaceTool.ButtonSetup(name, controlImg.transform, out Image objImg, out Button button, SysManager.sprites[10], null);
+        GameObject obj = InterfaceTool.ButtonSetup(name, controlImg.transform, out Image objImg, out Button button, SysManager.sprites[12], null);
         InterfaceTool.FormatRect(objImg.rectTransform, new Vector2(60, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(40, yOffset));
         button.onClick.AddListener(() => {
             bool on = currentControlSignals[signal];
             if (on) {
-                objImg.sprite = SysManager.sprites[10];
+                objImg.sprite = SysManager.sprites[12];
             }
             else {
-                objImg.sprite = SysManager.sprites[11];
+                objImg.sprite = SysManager.sprites[13];
             }
             currentControlSignals[signal] = !on;
         });
-        Text txt = InterfaceTool.CreateHeader(name, objImg.transform, new Vector2(60, 20), new Vector2(-110, -40), 16);
-        txt.color = Color.black;
+        Text text = InterfaceTool.CreateHeader(name, objImg.transform, new Vector2(60, 20), new Vector2(-110, -40), 16);
+        text.color = Color.black;
         return obj;
     }
 
@@ -112,7 +111,7 @@ public class Stage2 : Level
         AddLevelObject(Stage2ObjectPresests.CreateALU(300, 100, true, true, true));
         AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, 100, true, true, false));
 
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Datapath", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
             bool valid = true;
             foreach (Stage2Object obj in objects) {
                 foreach (Stage2ObjectNode node in obj.GetNodes()) {
@@ -127,10 +126,9 @@ public class Stage2 : Level
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        winCheckImg.color = Color.gray;
-        Text txt = InterfaceTool.CreateHeader("Check Datapath", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
-        txt.alignment = TextAnchor.MiddleCenter;
-        txt.color = Color.black;
+        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.black;
     }
 
     public enum ControlSignal {

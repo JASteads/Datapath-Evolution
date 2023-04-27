@@ -48,7 +48,7 @@ public class Stage1 : Level
             xPos += 250;
         }
         //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Indexes", levelObj.transform, out Image winCheckImg, out Button button, null, () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
             bool valid = true;
             dropLocationList.dLocations.ForEach(dropLocation => {
                 if (!dropLocation.IsCorrectState()) {
@@ -61,9 +61,9 @@ public class Stage1 : Level
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        winCheckImg.color = Color.gray;
-        Text txt = InterfaceTool.CreateHeader("Check Indexes", winCheckImg.transform, new Vector2(60, 20), new Vector2(35, -40), 16);
-        txt.color = Color.black;
+        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.black;
     }
 }
 

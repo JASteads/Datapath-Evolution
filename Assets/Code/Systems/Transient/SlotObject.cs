@@ -8,7 +8,7 @@ public class SlotObject
     private Image image;
 
     public SlotObject(GameObject levelObj, int slot, Vector2 position, List<DropLocation> dropLocations) {
-        InterfaceTool.ImgSetup("Slot " + slot, levelObj.transform, out image, SysManager.sprites[9], true);
+        InterfaceTool.ImgSetup("Slot " + slot, levelObj.transform, out image, SysManager.sprites[10], true);
         InterfaceTool.FormatRect(image.rectTransform, new Vector2(180, 180), position);
         dropLocations.Add(new DropLocation(GetTF(), slot));
     }
