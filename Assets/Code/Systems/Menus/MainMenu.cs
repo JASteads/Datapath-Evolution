@@ -11,7 +11,6 @@ public class MainMenu : MonoBehaviour
     List<GameObject> screens = new List<GameObject>();
     Button backButton, startButton;
     RectTransform menuParent;
-
     StagePreview sPreview;
 
     void Start()
