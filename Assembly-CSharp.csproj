@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{C78FE663-2223-67C6-7F78-F79B1487BF1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -62,10 +63,10 @@
     <Compile Include="Assets\Code\Systems\InterfaceTool.cs" />
     <Compile Include="Assets\Code\Stage2\ConnectWire.cs" />
     <Compile Include="Assets\Code\Systems\SysManager.cs" />
-    <Compile Include="Assets\Code\Systems\TooltipLibrary.cs" />
+    <Compile Include="Assets\Code\Systems\Tooltips\TooltipLibrary.cs" />
     <Compile Include="Assets\Code\Systems\Menus\MainMenu.cs" />
     <Compile Include="Assets\Code\Stage1\Stage1.cs" />
-    <Compile Include="Assets\Code\Systems\Tooltip.cs" />
+    <Compile Include="Assets\Code\Systems\Tooltips\Tooltip.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2ObjectPresets.cs" />
     <Compile Include="Assets\Code\Systems\DragNSnap\DragAndSnapEvent.cs" />
     <Compile Include="Assets\Code\Transient\SlotObject.cs" />
