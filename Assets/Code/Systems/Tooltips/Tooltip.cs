@@ -12,9 +12,10 @@ public class Tooltip
     {
         GameObject textBox = InterfaceTool.ImgSetup("Tooltip",
             parent, out Image boxImg, false);
+        tf = textBox.transform;
         InterfaceTool.FormatRect(boxImg.rectTransform,
-            new Vector2(400, 700), new Vector2(0.5f, 0.5f),
-            new Vector2(0.5f, 0.5f), Vector2.zero);
+            new Vector2(400, 700), Vector2.one,
+            Vector2.one, Vector2.one, new Vector2(-100, -100));
         boxImg.color = new Color(0, 0, 0, 0.5f);
 
         headerTxt = InterfaceTool.CreateHeader("Sample Text",
@@ -29,13 +30,12 @@ public class Tooltip
         bodyTxt.color = Color.white;
 
         textBox.SetActive(false);
-
-        tf = textBox.transform;
     }
 
     public void SetActive(bool _isActive)
     {
         isActive = _isActive;
+        if (isActive) tf.SetAsLastSibling();
     }
 
     public void AssignTooltip(Transform target)
@@ -43,15 +43,12 @@ public class Tooltip
         EventTrigger.Entry enterEvent = new EventTrigger.Entry
         { eventID = EventTriggerType.PointerEnter },
             exitEvent = new EventTrigger.Entry
-            { eventID = EventTriggerType.PointerExit },
-            moveEvent = new EventTrigger.Entry
-            { eventID = EventTriggerType.Move };
+            { eventID = EventTriggerType.PointerExit };
 
         enterEvent.callback.AddListener(data
            => ShowTooltip(data as PointerEventData));
         exitEvent.callback.AddListener(data
             => HideTooltip(data as PointerEventData));
-        moveEvent.callback.AddListener(data => MoveTooltip());
 
         EventTrigger eTrig = target.gameObject
             .AddComponent<EventTrigger>();
@@ -59,7 +56,7 @@ public class Tooltip
         eTrig.triggers.Add(exitEvent);
     }
 
-    public void ShowTooltip(PointerEventData data)
+    void ShowTooltip(PointerEventData data)
     {
         if (!isActive) return;
 
@@ -72,7 +69,7 @@ public class Tooltip
         tf.gameObject.SetActive(true);
     }
 
-    public void HideTooltip(PointerEventData data)
+    void HideTooltip(PointerEventData data)
     {
         if (!isActive) return;
 
