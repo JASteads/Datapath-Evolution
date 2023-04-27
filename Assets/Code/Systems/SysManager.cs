@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SysManager
 {
     public static Camera mainCam;
     public static Canvas canvas;
+    public static GameObject quitObj;
     public static readonly Font DEFAULT_FONT;
     public static readonly Sprite DEFAULT_BUTTON;
     public static Sprite[] sprites;
@@ -28,9 +30,21 @@ public class SysManager
         mainCam.orthographic = true;
         mainCam.backgroundColor = new Color(0.2f, 0.2f, 0.5f);
 
-        GameObject clickCanvasObj = InterfaceTool.CanvasSetup(
+        GameObject canvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
-        clickCanvasObj.AddComponent<MainMenu>();
+        canvasObj.AddComponent<MainMenu>();
+
+        quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform, out Image quitImg, out Button quitButton, null, () => {
+            SetLevel(null);
+            canvasObj.AddComponent<MainMenu>();
+            quitObj.SetActive(false);
+        });
+        InterfaceTool.FormatRect(quitImg.rectTransform, new Vector2(180, 60), Level.DEF_VEC, Level.DEF_VEC, Level.DEF_VEC, new Vector2(-825, 475));
+        quitImg.color = new Color(0.3F, 0.3F, 0.3F);
+        Text quitText = InterfaceTool.CreateHeader("Quit", quitImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
+        quitText.alignment = TextAnchor.MiddleCenter;
+        quitText.color = Color.black;
+        quitObj.SetActive(false);
     }
 
     public static void Quit()
