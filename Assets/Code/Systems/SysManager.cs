@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SysManager
 {
@@ -8,7 +7,6 @@ public class SysManager
     public static readonly Font DEFAULT_FONT;
     public static readonly Sprite DEFAULT_BUTTON;
     public static Sprite[] sprites;
-
     public static Level currentLevel;
 
     static SysManager()

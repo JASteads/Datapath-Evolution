@@ -63,15 +63,16 @@
     <Compile Include="Assets\Code\Stage2\ConnectWire.cs" />
     <Compile Include="Assets\Code\Systems\SysManager.cs" />
     <Compile Include="Assets\Code\Systems\TooltipLibrary.cs" />
-    <Compile Include="Assets\Code\Systems\MainMenu.cs" />
+    <Compile Include="Assets\Code\Systems\Menus\MainMenu.cs" />
     <Compile Include="Assets\Code\Stage1\Stage1.cs" />
     <Compile Include="Assets\Code\Systems\Tooltip.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2ObjectPresets.cs" />
     <Compile Include="Assets\Code\Systems\DragNSnap\DragAndSnapEvent.cs" />
+    <Compile Include="Assets\Code\Transient\SlotObject.cs" />
     <Compile Include="Assets\Code\Systems\Level.cs" />
+    <Compile Include="Assets\Code\Transient\DraggableObject.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2ObjectNode.cs" />
-    <Compile Include="Assets\Code\Stage3\Stage3P1DraggableObject.cs" />
-    <Compile Include="Assets\Code\Stage3\Stage3P1SlotObject.cs" />
+    <Compile Include="Assets\Code\Systems\Menus\StagePreview.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Code\Systems\DragNSnap\README.txt" />

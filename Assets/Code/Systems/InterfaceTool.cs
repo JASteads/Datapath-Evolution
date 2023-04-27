@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class InterfaceTool
 {
-    public static Font defaultFont = null;  // Be sure to set this
+    public static Font defaultFont = SysManager.DEFAULT_FONT;
 
     public static void ToggleCanvasPriority(GameObject parent,
         Canvas priority)
@@ -187,9 +187,8 @@ public class InterfaceTool
             size, new Vector2(0, 1),
             Vector2.one, new Vector2(),
             offset);
-        InterfaceTool.FormatText(header, defaultFont,
-            fontSize, Color.white, TextAnchor.UpperLeft,
-            FontStyle.Normal);
+        FormatText(header, defaultFont, fontSize,
+            Color.white, TextAnchor.UpperLeft, FontStyle.Normal);
         header.text = text;
 
         return header;
