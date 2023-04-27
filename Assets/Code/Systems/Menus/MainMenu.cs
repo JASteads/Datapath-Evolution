@@ -4,10 +4,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject pMainMenu, pStageSelect, pCreditsScreen;
     GameObject mainMenu, stageSelect, creditsScreen,
         previewScreen;
-
     List<GameObject> screens = new List<GameObject>();
     Button backButton, startButton;
     RectTransform menuParent;
@@ -21,9 +19,15 @@ public class MainMenu : MonoBehaviour
         menuParent.SetParent(SysManager.canvas.transform, false);
         InterfaceTool.FormatRect(menuParent);
 
-        mainMenu = Instantiate(pMainMenu, menuParent);
-        stageSelect = Instantiate(pStageSelect, menuParent);
-        creditsScreen = Instantiate(pCreditsScreen, menuParent);
+        mainMenu = Instantiate(
+            Resources.Load("Prefabs/Title Screen") as GameObject,
+            menuParent);
+        stageSelect = Instantiate(
+            Resources.Load("Prefabs/Stage Select Screen") as GameObject,
+            menuParent);
+        creditsScreen = Instantiate(
+            Resources.Load("Prefabs/Credits Screen") as GameObject,
+            menuParent);
         previewScreen = new GameObject("Preview Screen");
 
         stageSelect.SetActive(false);

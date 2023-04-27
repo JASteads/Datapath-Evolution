@@ -6,19 +6,20 @@ public class Diagram : MonoBehaviour
     const int INS_INDEX = 4;
     const int SLOTS_INDEX = 3;
     public readonly static int SLOT_COUNT = 4;
-
-    public GameObject obj;
     public Slot[] slots = new Slot[SLOT_COUNT];
 
+    public GameObject obj;
     RectTransform[] slotTF = new RectTransform[SLOT_COUNT];
     readonly Button[] rightButtons = new Button[SLOT_COUNT],
             leftButtons = new Button[SLOT_COUNT];
     readonly Vector2 deltaSlot = new Vector2(130, 0);
     
 
-    void Start()
+    void Awake()
     {
-        obj = Instantiate(obj, SysManager.canvas.transform);
+        obj = Instantiate(
+            Resources.Load("Prefabs/Pipeline Diagram") as GameObject,
+            SysManager.canvas.transform);
         obj.transform.localPosition = Vector3.zero;
         obj.SetActive(false);
         for (int i = 0; i < SLOT_COUNT; i++)
