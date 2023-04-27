@@ -14,6 +14,7 @@ public abstract class Level
         levelObj = new GameObject("Stage");
         levelObj.transform.SetParent(
             SysManager.canvas.transform, false);
+        SysManager.tooltip.SetActive(true);
     }
 
     public string GetName() {

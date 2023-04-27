@@ -8,7 +8,7 @@ public class Stage2Object
     private Image image;
 
     public Stage2Object(string name) {
-        InterfaceTool.ImgSetup(name, null, out image, false);
+        InterfaceTool.ImgSetup(name, null, out image, true);
     }
 
     public List<Stage2ObjectNode> GetNodes() {

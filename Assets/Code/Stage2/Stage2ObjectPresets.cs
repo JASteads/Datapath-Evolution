@@ -10,6 +10,8 @@ public class Stage2ObjectPresests
         InterfaceTool.FormatRect(aluObj.GetTF(), new Vector2(140, 140), new Vector2(xPosition, yPosition));
         aluObj.GetImage().sprite = SysManager.sprites[0];
 
+        SysManager.tooltip.AssignTooltip(aluObj.GetImage().transform);
+
         Stage2ObjectNode in1Obj = new Stage2ObjectNode(aluObj, "In 1", expectedIn1, NodeType.INPUT);
         in1Obj.GetImage().sprite = SysManager.sprites[6];
         in1Obj.GetTF().anchoredPosition = new Vector2(-10, 30);
@@ -101,6 +103,8 @@ public class Stage2ObjectPresests
         InterfaceTool.FormatRect(pcObj.GetTF(), new Vector2(40, 160), new Vector2(xPosition, yPosition));
         pcObj.GetImage().sprite = SysManager.sprites[2];
 
+        SysManager.tooltip.AssignTooltip(pcObj.GetImage().transform);
+
         Stage2ObjectNode outObj = new Stage2ObjectNode(pcObj, "Out", expectedOut, NodeType.OUTPUT);
         outObj.GetImage().sprite = SysManager.sprites[6];
         outObj.GetTF().anchoredPosition = new Vector2(10, 0);
@@ -115,6 +119,8 @@ public class Stage2ObjectPresests
         registerFileObj.GetImage().sprite = SysManager.sprites[3];
         Text text = InterfaceTool.CreateHeader("Register File", registerFileObj.GetTF(), new Vector2(0, 40), new Vector2(0, -170), 24);
         text.alignment = TextAnchor.MiddleCenter;
+
+        SysManager.tooltip.AssignTooltip(registerFileObj.GetImage().transform);
 
         Stage2ObjectNode readRegister1Obj = new Stage2ObjectNode(registerFileObj, "Read Register 1", expectedReadRegister1, NodeType.INPUT);
         readRegister1Obj.GetImage().sprite = SysManager.sprites[6];

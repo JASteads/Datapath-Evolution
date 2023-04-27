@@ -29,6 +29,8 @@ public class Tooltip
         bodyTxt.color = Color.white;
 
         textBox.SetActive(false);
+
+        tf = textBox.transform;
     }
 
     public void SetActive(bool _isActive)
@@ -57,7 +59,7 @@ public class Tooltip
         eTrig.triggers.Add(exitEvent);
     }
 
-    void ShowTooltip(PointerEventData data)
+    public void ShowTooltip(PointerEventData data)
     {
         if (!isActive) return;
 
@@ -70,7 +72,7 @@ public class Tooltip
         tf.gameObject.SetActive(true);
     }
 
-    void HideTooltip(PointerEventData data)
+    public void HideTooltip(PointerEventData data)
     {
         if (!isActive) return;
 
