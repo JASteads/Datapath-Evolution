@@ -48,7 +48,7 @@ public class Stage1 : Level
             xPos += 250;
         }
         //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             bool valid = true;
             foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {

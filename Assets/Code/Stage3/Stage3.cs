@@ -51,7 +51,7 @@ public class Stage3 : Level
             xPos += 250;
         }
         //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             bool valid = true;
             foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
@@ -80,7 +80,7 @@ public class Stage3 : Level
         diagram.slots[2] = new Slot(3);
         diagram.slots[3] = new Slot(4);
         //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             bool valid = true;
             foreach (Slot slot in diagram.slots) {
                 if (!slot.CheckPosition()) {

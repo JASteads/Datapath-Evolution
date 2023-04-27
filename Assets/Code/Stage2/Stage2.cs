@@ -61,8 +61,9 @@ public class Stage2 : Level
 
     private void CreateControlObjects() {
         //control
-        GameObject controlObj = InterfaceTool.ImgSetup("Control", levelObj.transform, out Image controlImg, SysManager.sprites[11], false);
+        GameObject controlObj = InterfaceTool.ImgSetup("Control Unit", levelObj.transform, out Image controlImg, SysManager.sprites[11], true);
         InterfaceTool.FormatRect(controlImg.rectTransform, new Vector2(300, 600), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
+        SysManager.tooltip.AssignTooltip(controlObj.transform);
         //signal toggles
         int yOffset = 240;
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
@@ -73,7 +74,7 @@ public class Stage2 : Level
         Text descriptions = InterfaceTool.CreateHeader("", controlObj.transform, new Vector2(300, 800), new Vector2(400, -700), 20);
         descriptions.alignment = TextAnchor.MiddleCenter;
         //control signal check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             CheckControlSignals();
             if (validControlSignals) {
                 ResetObjects();
@@ -98,6 +99,7 @@ public class Stage2 : Level
         String name = signal.ToString();
         GameObject obj = InterfaceTool.ButtonSetup(name, controlImg.transform, out Image objImg, out Button button, SysManager.sprites[12], null);
         InterfaceTool.FormatRect(objImg.rectTransform, new Vector2(60, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(40, yOffset));
+        SysManager.tooltip.AssignTooltip(obj.transform);
         button.onClick.AddListener(() => {
             bool on = currentControlSignals[signal];
             if (on) {
@@ -122,7 +124,7 @@ public class Stage2 : Level
         AddLevelObject(Stage2ObjectPresests.CreateALU(300, 100, true, true, true));
         AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, 100, true, true, false));
 
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
+        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             bool valid = true;
             foreach (Stage2Object obj in objects) {
                 foreach (Stage2ObjectNode node in obj.GetNodes()) {
