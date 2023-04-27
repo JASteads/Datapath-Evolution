@@ -32,11 +32,7 @@ public class SysManager
 
         GameObject canvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
-        Diagram d = canvasObj.AddComponent<Diagram>();
-        d.slots[0] = new Slot(0);
-        d.slots[1] = new Slot(1);
-        d.slots[2] = new Slot(2);
-        d.slots[3] = new Slot(3);
+        canvasObj.AddComponent<MainMenu>();
 
         quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform, out Image quitImg, out Button quitButton, null, () => {
             SetLevel(null);
