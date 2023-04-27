@@ -10,6 +10,7 @@ public class SysManager
     public static readonly Sprite DEFAULT_BUTTON;
     public static Sprite[] sprites;
     public static Level currentLevel;
+    public static Tooltip tooltip;
 
     static SysManager()
     {
@@ -33,6 +34,7 @@ public class SysManager
         canvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
         canvasObj.AddComponent<MainMenu>();
+        tooltip = new Tooltip(canvas.transform);
         CreateQuitButton();
     }
 
