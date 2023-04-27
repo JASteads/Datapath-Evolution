@@ -15,11 +15,18 @@ public class Tooltip
         InterfaceTool.FormatRect(boxImg.rectTransform,
             new Vector2(400, 700), new Vector2(0.5f, 0.5f),
             new Vector2(0.5f, 0.5f), Vector2.zero);
+        boxImg.color = new Color(0, 0, 0, 0.5f);
 
         headerTxt = InterfaceTool.CreateHeader("Sample Text",
-            textBox.transform, new Vector2(300, 50), new Vector2(-50, 0), 24);
+            textBox.transform, new Vector2(300, 50), new Vector2(40, -80), 24);
         bodyTxt = InterfaceTool.CreateBody("Insert text here",
             textBox.transform, 14);
+        InterfaceTool.FormatRect(bodyTxt.rectTransform,
+            new Vector2(-80, -200), new Vector2(0, 0),
+            new Vector2(1, 1), new Vector2(0, 1),
+            new Vector2(40, -100));
+        bodyTxt.alignment = TextAnchor.UpperLeft;
+        bodyTxt.color = Color.white;
 
         textBox.SetActive(false);
     }

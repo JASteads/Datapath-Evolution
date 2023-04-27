@@ -10,7 +10,7 @@ public class DragAndSnapEvent
     readonly int state;
 
     Graphic rayTarget;
-    Vector2 screenOffset, startPos;
+    Vector2 screenOffset, startPos, screenRatio;
     DropLocation dropLocation;
 
     public DragAndSnapEvent(Graphic _target,
@@ -47,6 +47,8 @@ public class DragAndSnapEvent
 
     void StartDrag(PointerEventData data)
     {
+        screenRatio = new Vector2(1920, 1080)
+            / new Vector2(Screen.width, Screen.height);
         if (dropLocation != null)
         {
             dropLocation.SetState(DropLocation.UNSET);
@@ -61,7 +63,8 @@ public class DragAndSnapEvent
 
     void UpdateDrag(PointerEventData data)
     {
-        target.localPosition = data.position - screenOffset;
+        target.localPosition = (data.position - screenOffset)
+            * screenRatio;
     }
 
     void EndDrag(PointerEventData data)

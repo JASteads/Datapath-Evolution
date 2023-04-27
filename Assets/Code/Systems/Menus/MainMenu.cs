@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
     RectTransform menuParent;
     StagePreview sPreview;
 
-    void Start()
+    void Awake()
     {
         Transform menu;
         

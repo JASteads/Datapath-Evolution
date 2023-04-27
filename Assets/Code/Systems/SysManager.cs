@@ -33,17 +33,7 @@ public class SysManager
         canvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);
         canvasObj.AddComponent<MainMenu>();
-
-        quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform, out Image quitImg, out Button quitButton, null, () => {
-            SetLevel(null);
-            quitObj.SetActive(false);
-        });
-        InterfaceTool.FormatRect(quitImg.rectTransform, new Vector2(180, 60), Level.DEF_VEC, Level.DEF_VEC, Level.DEF_VEC, new Vector2(-825, 475));
-        quitImg.color = new Color(0.3F, 0.3F, 0.3F);
-        Text quitText = InterfaceTool.CreateHeader("Quit", quitImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
-        quitText.alignment = TextAnchor.MiddleCenter;
-        quitText.color = Color.black;
-        quitObj.SetActive(false);
+        CreateQuitButton();
     }
 
     public static void Quit()
@@ -75,5 +65,25 @@ public class SysManager
 
     public static Level GetStage3() {
         return new Stage3();
+    }
+
+    static void CreateQuitButton()
+    {
+        quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform,
+            out Image quitImg, out Button quitButton, null, () => {
+            SetLevel(null);
+            quitObj.SetActive(false);
+        });
+        InterfaceTool.FormatRect(quitImg.rectTransform,
+            new Vector2(180, 60), Level.DEF_VEC,
+            Level.DEF_VEC, Level.DEF_VEC,
+            new Vector2(-825, 475));
+        quitImg.color = new Color(0.3F, 0.3F, 0.3F);
+        Text quitText = InterfaceTool.CreateHeader("Quit",
+            quitImg.transform, new Vector2(0, 40),
+            new Vector2(0, -50), 24);
+        quitText.alignment = TextAnchor.MiddleCenter;
+        quitText.color = Color.black;
+        quitObj.SetActive(false);
     }
 }
