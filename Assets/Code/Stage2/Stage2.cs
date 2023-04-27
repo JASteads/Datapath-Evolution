@@ -69,12 +69,23 @@ public class Stage2 : Level
             CreateControlToggle(signal, controlImg, yOffset);
             yOffset -= 80;
         }
+        //incorrect answers
+        Text descriptions = InterfaceTool.CreateHeader("", controlObj.transform, new Vector2(300, 800), new Vector2(400, -700), 20);
+        descriptions.alignment = TextAnchor.MiddleCenter;
         //control signal check
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[11], () => {
             CheckControlSignals();
             if (validControlSignals) {
                 ResetObjects();
                 CreateDatapathObjects();
+            }
+            else {
+                descriptions.text = "";
+                foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
+                    if (currentControlSignals[signal] != expectedControlSignals[signal]) {
+                        descriptions.text += "-" + GetIncorrectDescriptionMessage(signal) + "\n";
+                    }
+                }
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
@@ -129,6 +140,36 @@ public class Stage2 : Level
         Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.black;
+    }
+
+    private string GetIncorrectDescriptionMessage(ControlSignal signal) {
+        string message = ""; 
+        switch (signal) {
+            case ControlSignal.REG_DST:
+                message = "The REG_DST signal selects the destination register for the data that is to be written to memory. It should not be turned off because if it is turned off, the data will not be written to the correct register.";
+                break;
+            case ControlSignal.REG_WRITE:
+                message = "The REG_WRITE signal enables the write operation to a register. It should not be turned on because the data is being written to memory and not to a register.";
+                break;
+            case ControlSignal.PC_SRC:
+                message = "The PC_SRC signal selects the source of the program counter value. It should not be turned on because the program counter value is not being used in this datapath.";
+                break;
+            case ControlSignal.ALU_SRC:
+                message = "The ALU_SRC signal selects the source of the data that is to be written to memory. It should not be turned off because if it is turned off, the data will not be written to the correct memory location.";
+                break;
+            case ControlSignal.MEM_READ:
+                message = "The MEM_READ signal enables the memory read operation. It should not be turned on because the data is being written to memory and not being read from memory.";
+                break;
+            case ControlSignal.MEM_WRITE:
+                message = "The MEM_WRITE signal enables the memory write operation. It should not be turned off because if it is turned off, the data will not be written to memory.";
+                break;
+            case ControlSignal.MEM_TO_REG:
+                message = "The MEM_TO_REG signal selects the source of data to be written to a register. It should not be turned on because the data is being written to memory and not being selected data to send to the register file to write.";
+                break;
+            default:
+                break;
+        };
+        return message;
     }
 
     public enum ControlSignal {
