@@ -59,6 +59,7 @@ public class SysManager
             currentLevel.Destroy();
         }
         currentLevel = level;
+        // go to main menu
         if (level == null) {
             canvasObj.AddComponent<MainMenu>();
         }
