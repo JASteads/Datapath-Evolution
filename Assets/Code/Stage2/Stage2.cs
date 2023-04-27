@@ -86,18 +86,18 @@ public class Stage2 : Level
 
     private GameObject CreateControlToggle(ControlSignal signal, Image controlImg, int yOffset) {
         String name = signal.ToString();
-        GameObject obj = InterfaceTool.ButtonSetup(name, controlImg.transform, out Image objImg, out Button button, null, null);
+        GameObject obj = InterfaceTool.ButtonSetup(name, controlImg.transform, out Image objImg, out Button button, SysManager.sprites[10], null);
         InterfaceTool.FormatRect(objImg.rectTransform, new Vector2(60, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(40, yOffset));
         button.onClick.AddListener(() => {
-            if (objImg.color == Color.red) {
-                objImg.color = Color.blue;
+            bool on = currentControlSignals[signal];
+            if (on) {
+                objImg.sprite = SysManager.sprites[10];
             }
             else {
-                objImg.color = Color.red;
+                objImg.sprite = SysManager.sprites[11];
             }
-            currentControlSignals[signal] = !currentControlSignals[signal];
+            currentControlSignals[signal] = !on;
         });
-        objImg.color = Color.red;
         Text txt = InterfaceTool.CreateHeader(name, objImg.transform, new Vector2(60, 20), new Vector2(-110, -40), 16);
         txt.color = Color.black;
         return obj;
