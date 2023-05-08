@@ -35,14 +35,22 @@ public class Stage3 : Level
             names.RemoveAt(index);
             xPos += 250;
         }
+        // incorrect answers
+        Text incorrectReasons = InterfaceTool.CreateHeader("", levelObj.transform, new Vector2(400, 800), new Vector2(525, -400), 20);
+        incorrectReasons.alignment = TextAnchor.MiddleCenter;
         // valid check
         CreateCheckAnswerButton(() => {
+            bool correct = true;
+            incorrectReasons.text = "";
             foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
-                    return false;
+                    correct = false;
+                    if (dropLocation.state != -1) {
+                        incorrectReasons.text += "-" + GetIncorrectReason(dropLocation.state) + "\n";
+                    }
                 }
             }
-            return true;
+            return correct;
         }, () => {
             CreateWinScreen("To Phase 2", () => {
                 ResetObjects();
@@ -73,5 +81,26 @@ public class Stage3 : Level
                 SysManager.SetLevel(null);
             });
         });
+    }
+
+    private String GetIncorrectReason(int index) {
+        string reason = "";
+        switch(index) {
+            case 0:
+                reason = "The IF/ID stage is where the instructions are fetched from memory. It needs to be the first stage because it determines which instruction is being executed, and the rest of the datapath relies on this information.";
+                break;
+            case 1:
+                reason = "The ID/EX stage is responsible for decoding the instructions and preparing them for execution in the next stage.";
+                break;
+            case 2:
+                reason = "The EX/MEM allows the execution stage to complete before the memory stage begins. It ensures the correct data is stored in the memory.";
+                break;
+            case 3:
+                reason = "The MEM/WB is the result of memory operations are stored and being written back to the register file.";
+                break;
+            default:
+                break;
+        }
+        return reason;
     }
 }
