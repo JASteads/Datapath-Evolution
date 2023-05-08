@@ -47,6 +47,8 @@ public class DragAndSnapEvent
 
     void StartDrag(PointerEventData data)
     {
+        if (SysManager.currentLevel.IsFrozen()) return;
+        
         screenRatio = new Vector2(1920, 1080)
             / new Vector2(Screen.width, Screen.height);
         if (dropLocation != null)
@@ -63,12 +65,16 @@ public class DragAndSnapEvent
 
     void UpdateDrag(PointerEventData data)
     {
+        if (SysManager.currentLevel.IsFrozen()) return;
+        
         target.localPosition = (data.position - screenOffset)
             * screenRatio;
     }
 
     void EndDrag(PointerEventData data)
     {
+        if (SysManager.currentLevel.IsFrozen()) return;
+
         rayTarget.raycastTarget = true;
 
         if (data.pointerEnter == null || dList == null)

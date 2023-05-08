@@ -9,6 +9,8 @@ public abstract class Level
     readonly string name;
     protected GameObject levelObj;
 
+    private bool frozen = false;
+
     public Level(string name) {
         this.name = name;
         levelObj = new GameObject("Stage");
@@ -30,6 +32,10 @@ public abstract class Level
     }
 
     public abstract bool CheckWinCondition();
+
+    public bool IsFrozen() {
+        return frozen;
+    }
 
     public void Destroy() {
         GameObject.Destroy(levelObj);
@@ -77,6 +83,7 @@ public abstract class Level
         nextButton.onClick.AddListener(() => {
             GameObject.Destroy(nextObj);
             nextLevel.Invoke();
+            frozen = false;
         });
         nextImg.color = new Color(0.5F, 0.5F, 0.5F);
         Text nextText = InterfaceTool.CreateHeader(description, nextImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
@@ -88,6 +95,7 @@ public abstract class Level
             InterfaceTool.FormatRect(nextImg.rectTransform, nextImg.rectTransform.sizeDelta, new Vector2(1, 0), new Vector2(1, 0), new Vector2(1, 0), new Vector2(-20, 20));
             winObj.SetActive(false);
             SysManager.tooltip.SetActive(true);
+            frozen = true;
         });
         InterfaceTool.FormatRect(reviewImage.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(-150, -100));
         reviewImage.color = new Color(0.5F, 0.5F, 0.5F);

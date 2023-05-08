@@ -44,6 +44,8 @@ public class Diagram : MonoBehaviour
 
     void MoveLeft(int slotNum)
     {
+        if (SysManager.currentLevel.IsFrozen()) return;
+        
         int newPos = slots[slotNum].Translate(false);
         slotTF[slotNum].anchoredPosition -= deltaSlot;
 
@@ -54,6 +56,8 @@ public class Diagram : MonoBehaviour
 
     void MoveRight(int slotNum)
     {
+        if (SysManager.currentLevel.IsFrozen()) return;
+        
         int newPos = slots[slotNum].Translate(true);
         slotTF[slotNum].anchoredPosition += deltaSlot;
 

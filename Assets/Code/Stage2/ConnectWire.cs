@@ -50,7 +50,7 @@ public class ConnectWire
 
     void StartWireDraw(PointerEventData data)
     {
-        if (dest != null) return;
+        if (dest != null || SysManager.currentLevel.IsFrozen()) return;
 
         scaleRatio = canvasRes / new Vector2(
             Screen.width, Screen.height);
@@ -69,7 +69,7 @@ public class ConnectWire
 
     void UpdateWireDraw(PointerEventData data)
     {
-        if (dest != null) return;
+        if (dest != null || SysManager.currentLevel.IsFrozen()) return;
         
         Vector2 mousePos = (data.position - screenRes) * scaleRatio;
         Vector2 startPos = new Vector2(
@@ -88,7 +88,7 @@ public class ConnectWire
 
     void FinishWireDraw(PointerEventData data)
     {
-        if (dest != null) return;
+        if (dest != null || SysManager.currentLevel.IsFrozen()) return;
 
         if (IsInInput(data))
             CompleteConnect(data.pointerEnter.transform);
@@ -128,6 +128,7 @@ public class ConnectWire
 
     void DeleteWire()
     {
+        if (SysManager.currentLevel.IsFrozen()) return;
         delButton.gameObject.SetActive(false);
         dest.SetCurrentState(false);
         src.SetCurrentState(false);

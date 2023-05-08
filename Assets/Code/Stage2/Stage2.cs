@@ -79,6 +79,7 @@ public class Stage2 : Level
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             CheckControlSignals();
             if (validControlSignals) {
+                descriptions.text = "";
                 CreateWinScreen("To Phase 2", () => {
                     ResetObjects();
                     CreateDatapathObjects();
@@ -106,6 +107,9 @@ public class Stage2 : Level
         InterfaceTool.FormatRect(objImg.rectTransform, new Vector2(60, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(40, yOffset));
         SysManager.tooltip.AssignTooltip(obj.transform);
         button.onClick.AddListener(() => {
+            if (IsFrozen()) {
+                return;
+            }
             bool on = currentControlSignals[signal];
             if (on) {
                 objImg.sprite = SysManager.sprites[12];
