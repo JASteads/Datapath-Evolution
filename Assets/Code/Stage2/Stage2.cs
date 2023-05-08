@@ -25,10 +25,6 @@ public class Stage2 : Level
             CreateControlObjects);
     }
 
-    public override bool CheckWinCondition() {
-        return false;
-    }
-
     public void AddLevelObject(Stage2Object levelObject) {
         objects.Add(levelObject);
         levelObject.GetTF().SetParent(levelObj.transform, false);

@@ -15,21 +15,6 @@ public class Stage3 : Level
             CreatePhase1Objects);
     }
 
-    public override void EnableTooltips()
-    {
-        Debug.Log("Tooltips to be enabled!");
-    }
-
-    public override void OnWin()
-    {
-        Debug.Log("Level" + GetName() + "complete");
-    }
-
-    public override bool CheckWinCondition()
-    {
-        return false;
-    }
-
     private void CreatePhase1Objects() {
         System.Random rand = new System.Random();
         List<DropLocation> dropLocations = new List<DropLocation>();

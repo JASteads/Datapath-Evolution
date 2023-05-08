@@ -23,16 +23,6 @@ public abstract class Level
         return name;
     }
 
-    public virtual void EnableTooltips() {
-        Debug.Log("Tooltips to be enabled!");
-    }
-    
-    public virtual void OnWin() {
-        Debug.Log("Level" + GetName() + "complete");
-    }
-
-    public abstract bool CheckWinCondition();
-
     public bool IsFrozen() {
         return frozen;
     }
@@ -98,7 +88,7 @@ public abstract class Level
         Text winText = InterfaceTool.CreateHeader("You Win!",
             winImg.transform, new Vector2(0, 200), new Vector2(0, -250), 32);
         winText.alignment = TextAnchor.MiddleCenter;
-        //next level
+        // next level
         GameObject nextObj = InterfaceTool.ButtonSetup(description, winObj.transform, out Image nextImg, out Button nextButton, null, null);
         InterfaceTool.FormatRect(nextImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(150, -100));
         nextButton.onClick.AddListener(() => {
@@ -110,7 +100,7 @@ public abstract class Level
         Text nextText = InterfaceTool.CreateHeader(description, nextImg.transform, new Vector2(0, 40), new Vector2(0, -50), 24);
         nextText.alignment = TextAnchor.MiddleCenter;
         nextText.color = Color.black;
-        //review level
+        // review level
         GameObject reviewObject = InterfaceTool.ButtonSetup("Review Level", winObj.transform, out Image reviewImage, out Button reviewButton, null, () => {
             nextObj.transform.SetParent(SysManager.canvas.transform);
             InterfaceTool.FormatRect(nextImg.rectTransform, nextImg.rectTransform.sizeDelta, new Vector2(1, 0), new Vector2(1, 0), new Vector2(1, 0), new Vector2(-20, 20));
