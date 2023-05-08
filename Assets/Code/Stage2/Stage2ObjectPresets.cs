@@ -37,6 +37,8 @@ public class Stage2ObjectPresests
         Text text = InterfaceTool.CreateHeader("Data Memory", dataMemoryObj.GetTF(), new Vector2(0, 40), new Vector2(0, -170), 24);
         text.alignment = TextAnchor.MiddleCenter;
 
+        SysManager.tooltip.AssignTooltip(dataMemoryObj.GetImage().transform);
+
         Stage2ObjectNode addressObj = new Stage2ObjectNode(dataMemoryObj, "Address", expectedWriteData, NodeType.INPUT);
         addressObj.GetImage().sprite = SysManager.sprites[6];
         addressObj.GetTF().anchoredPosition = new Vector2(-10, 80);
@@ -61,6 +63,8 @@ public class Stage2ObjectPresests
         instructionMemoryObj.GetImage().sprite = SysManager.sprites[3];
         Text text = InterfaceTool.CreateHeader("Instruction\nMemory", instructionMemoryObj.GetTF(), new Vector2(0, 60), new Vector2(0, -180), 24);
         text.alignment = TextAnchor.MiddleCenter;
+
+        SysManager.tooltip.AssignTooltip(instructionMemoryObj.GetImage().transform);
 
         Stage2ObjectNode readAddressObj = new Stage2ObjectNode(instructionMemoryObj, "Read Address", expectedReadAddress, NodeType.INPUT);
         readAddressObj.GetImage().sprite = SysManager.sprites[6];
@@ -159,6 +163,8 @@ public class Stage2ObjectPresests
         Stage2Object signExtendObj = new Stage2Object("Sign Extend");
         InterfaceTool.FormatRect(signExtendObj.GetTF(), new Vector2(80, 160), new Vector2(xPosition, yPosition));
         signExtendObj.GetImage().sprite = SysManager.sprites[8];
+
+        SysManager.tooltip.AssignTooltip(signExtendObj.GetImage().transform);
 
         Stage2ObjectNode inObj = new Stage2ObjectNode(signExtendObj, "In", expectedOut, NodeType.INPUT);
         inObj.GetImage().sprite = SysManager.sprites[6];

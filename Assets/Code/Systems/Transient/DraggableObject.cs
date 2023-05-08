@@ -13,6 +13,7 @@ public class DraggableObject
         Text text = InterfaceTool.CreateHeader(name, GetTF(), new Vector2(0, 60), new Vector2(0, -110), 24);
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.black;
+        SysManager.tooltip.AssignTooltip(image.transform);
         new DragAndSnapEvent(image, dropLocationList, currentSlot);
     }
 
