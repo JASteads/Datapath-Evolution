@@ -72,6 +72,7 @@ public abstract class Level
 
     protected void CreateCheckAnswerButton(Func<bool> winCondition, Action runWhenCorrect, Action runWhenIncorrect) {
         GameObject checkAnswerObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image checkAnswerImg, out Button checkAnswerButton, SysManager.sprites[1], null);
+        InterfaceTool.FormatRect(checkAnswerImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
         checkAnswerButton.onClick.AddListener(() => {
             if (winCondition.Invoke()) {
                 GameObject.Destroy(checkAnswerObj);
@@ -81,7 +82,6 @@ public abstract class Level
                 runWhenIncorrect.Invoke();
             }
         });
-        InterfaceTool.FormatRect(checkAnswerImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
         Text text = InterfaceTool.CreateHeader("Check Answer", checkAnswerImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.black;
