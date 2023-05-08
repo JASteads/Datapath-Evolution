@@ -24,8 +24,6 @@ public class Stage2 : Level
         //introduction
         CreateIntroductionBox("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.",
             CreateControlObjects);
-
-        SysManager.tooltip.SetActive(true);
     }
 
     public override bool CheckWinCondition() {
