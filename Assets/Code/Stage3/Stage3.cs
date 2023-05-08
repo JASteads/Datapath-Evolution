@@ -36,7 +36,7 @@ public class Stage3 : Level
             xPos += 250;
         }
         // incorrect answers
-        Text incorrectReasons = InterfaceTool.CreateHeader("", levelObj.transform, new Vector2(400, 800), new Vector2(525, -400), 20);
+        Text incorrectReasons = InterfaceTool.CreateHeader("", levelObj.transform, new Vector2(400, 800), new Vector2(515, -400), 20);
         incorrectReasons.alignment = TextAnchor.MiddleCenter;
         // valid check
         CreateCheckAnswerButton(() => {
