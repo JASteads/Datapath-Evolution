@@ -66,19 +66,19 @@
                 body = "A type of memory that stores data values used by a program. The CPU can read from and write to this memory as it executes instructions.";
                 break;
             case "IF/ID":
-                header = "Fetch/Decode (IF/ID)";
+                header = "Fetch/Decode";
                 body = "During this stage, the CPU fetches the next instruction from memory and decodes it to determine what operation it performs.";
                 break;
             case "ID/EX":
-                header = "Instruction Decode/Execute (ID/EX)";
+                header = "Instruction Decode/Execute";
                 body = "During this stage, the CPU decodes the instruction and prepares to execute it.";
                 break;
             case "EX/MEM":
-                header = "Execute/Memory Access (EX/MEM)";
+                header = "Execute/Memory Access";
                 body = "During this stage, the CPU executes the instruction and accesses memory as needed.";
                 break;
             case "MEM/WB":
-                header = "Memory Access/Write Back (MEM/WB)";
+                header = "Memory Access/Write Back";
                 body = "During this stage, the CPU accesses memory to retrieve or store data, and writes the result of the instruction back to a register.";
                 break;
             default:

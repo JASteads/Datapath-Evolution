@@ -79,9 +79,11 @@ public class Stage2 : Level
         GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
             CheckControlSignals();
             if (validControlSignals) {
-                ResetObjects();
-                CreateDatapathObjects();
-                SysManager.tooltip.SetActive(false);
+                CreateWinScreen("To Phase 2", () => {
+                    ResetObjects();
+                    CreateDatapathObjects();
+                    SysManager.tooltip.SetActive(false);
+                });
             }
             else {
                 descriptions.text = "";

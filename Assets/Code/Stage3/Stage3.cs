@@ -60,8 +60,10 @@ public class Stage3 : Level
                 }
             }
             if (valid) {
-                ResetObjects();
-                CreatePhase2Objects();
+                CreateWinScreen("To Phase 2", () => {
+                    ResetObjects();
+                    CreatePhase2Objects();
+                });
             }
         });
         InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
