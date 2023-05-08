@@ -6,18 +6,13 @@ public class DropLocation
 
     readonly Transform tf;
     readonly int expectedState;
-    int state;
+    public int state;
 
     public DropLocation(Transform _target, int _expectedState)
     {
         expectedState = _expectedState;
         tf = _target;
         state = UNSET;
-    }
-
-    public void SetState(int newState)
-    {
-        state = newState;
     }
 
     public Transform GetTF()

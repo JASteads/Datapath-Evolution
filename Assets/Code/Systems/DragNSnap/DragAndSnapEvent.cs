@@ -53,7 +53,7 @@ public class DragAndSnapEvent
             / new Vector2(Screen.width, Screen.height);
         if (dropLocation != null)
         {
-            dropLocation.SetState(DropLocation.UNSET);
+            dropLocation.state = DropLocation.UNSET;
             dropLocation = null;
             target.SetParent(parent, false);
         }   
@@ -91,7 +91,7 @@ public class DragAndSnapEvent
         {
             target.SetParent(dropLocation.GetTF(), false);
             target.localPosition = Vector2.zero;
-            dropLocation.SetState(state);
+            dropLocation.state = state;
             
         }
         else target.localPosition = startPos;

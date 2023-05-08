@@ -32,19 +32,51 @@ public class Stage1 : Level
             names.RemoveAt(index);
             xPos += 250;
         }
+        // incorrect answers
+        Text incorrectReasons = InterfaceTool.CreateHeader("", levelObj.transform, new Vector2(300, 800), new Vector2(625, -400), 20);
+        incorrectReasons.alignment = TextAnchor.MiddleCenter;
         // valid check
         CreateCheckAnswerButton(() => {
+            bool correct = true;
+            incorrectReasons.text = "";
             foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
-                    return false;
+                    correct = false;
+                    if (dropLocation.state != -1) {
+                        incorrectReasons.text += "-" + GetIncorrectReason(dropLocation.state) + "\n";
+                    }
                 }
             }
-            return true;
+            return correct;
         }, () => {
             CreateWinScreen("To Stage 2", () => {
                 SysManager.SetLevel(SysManager.GetStage2());
             });
         });
+    }
+
+    private String GetIncorrectReason(int index) {
+        string reason = "";
+        switch(index) {
+            case 0:
+                reason = "The PC holds the memory address of the next instruction to be executed. It ensures the CPU knows what is the next instruction to execute first and continues executing instructions in the correct order.";
+                break;
+            case 1:
+                reason = "The processor needs to fetch instructions from memory before it can execute them. If the instruction memory is not placed second, the processor will not be able to fetch instructions correctly.";
+                break;
+            case 2:
+                reason = "The register file holds the data and needs to provide instructions to the processor before any data is accessed or processed.";
+                break;
+            case 3:
+                reason = "The ALU performs arithmetic and logical operations on data. ALU requires the operands from the previous components in the path to perform ALU.";
+                break;
+            case 4:
+                reason = "The data memory should be accessed after the arithmetic and logic operations have been performed. This is because the results of those operations need to be stored or retrieved from the data memory.";
+                break;
+            default:
+                break;
+        }
+        return reason;
     }
 }
 

@@ -56,8 +56,8 @@ public class Stage2 : Level
             yOffset -= 80;
         }
         // incorrect answers
-        Text descriptions = InterfaceTool.CreateHeader("", controlObj.transform, new Vector2(300, 800), new Vector2(400, -700), 20);
-        descriptions.alignment = TextAnchor.MiddleCenter;
+        Text incorrectReasons = InterfaceTool.CreateHeader("", controlObj.transform, new Vector2(300, 800), new Vector2(400, -700), 20);
+        incorrectReasons.alignment = TextAnchor.MiddleCenter;
         // valid check
         CreateCheckAnswerButton(() => {
             foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
@@ -67,17 +67,17 @@ public class Stage2 : Level
             }
             return true;
         }, () => {
-            descriptions.text = "";
+            incorrectReasons.text = "";
             CreateWinScreen("To Phase 2", () => {
                 ResetObjects();
                 CreateDatapathObjects();
                 SysManager.tooltip.SetActive(false);
             });
         }, () => {
-            descriptions.text = "";
+            incorrectReasons.text = "";
             foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
                 if (currentControlSignals[signal] != expectedControlSignals[signal]) {
-                    descriptions.text += "-" + GetIncorrectDescriptionMessage(signal) + "\n";
+                    incorrectReasons.text += "-" + GetIncorrectReason(signal) + "\n";
                 }
             }
         });
@@ -131,34 +131,34 @@ public class Stage2 : Level
         });
     }
 
-    private string GetIncorrectDescriptionMessage(ControlSignal signal) {
-        string message = ""; 
+    private string GetIncorrectReason(ControlSignal signal) {
+        string reason = ""; 
         switch (signal) {
             case ControlSignal.REG_DST:
-                message = "The REG_DST signal selects the destination register for the data that is to be written to memory. It should not be turned off because if it is turned off, the data will not be written to the correct register.";
+                reason = "The REG_DST signal selects the destination register for the data that is to be written to memory. It should not be turned off because if it is turned off, the data will not be written to the correct register.";
                 break;
             case ControlSignal.REG_WRITE:
-                message = "The REG_WRITE signal enables the write operation to a register. It should not be turned on because the data is being written to memory and not to a register.";
+                reason = "The REG_WRITE signal enables the write operation to a register. It should not be turned on because the data is being written to memory and not to a register.";
                 break;
             case ControlSignal.PC_SRC:
-                message = "The PC_SRC signal selects the source of the program counter value. It should not be turned on because the program counter value is not being used in this datapath.";
+                reason = "The PC_SRC signal selects the source of the program counter value. It should not be turned on because the program counter value is not being used in this datapath.";
                 break;
             case ControlSignal.ALU_SRC:
-                message = "The ALU_SRC signal selects the source of the data that is to be written to memory. It should not be turned off because if it is turned off, the data will not be written to the correct memory location.";
+                reason = "The ALU_SRC signal selects the source of the data that is to be written to memory. It should not be turned off because if it is turned off, the data will not be written to the correct memory location.";
                 break;
             case ControlSignal.MEM_READ:
-                message = "The MEM_READ signal enables the memory read operation. It should not be turned on because the data is being written to memory and not being read from memory.";
+                reason = "The MEM_READ signal enables the memory read operation. It should not be turned on because the data is being written to memory and not being read from memory.";
                 break;
             case ControlSignal.MEM_WRITE:
-                message = "The MEM_WRITE signal enables the memory write operation. It should not be turned off because if it is turned off, the data will not be written to memory.";
+                reason = "The MEM_WRITE signal enables the memory write operation. It should not be turned off because if it is turned off, the data will not be written to memory.";
                 break;
             case ControlSignal.MEM_TO_REG:
-                message = "The MEM_TO_REG signal selects the source of data to be written to a register. It should not be turned on because the data is being written to memory and not being selected data to send to the register file to write.";
+                reason = "The MEM_TO_REG signal selects the source of data to be written to a register. It should not be turned on because the data is being written to memory and not being selected data to send to the register file to write.";
                 break;
             default:
                 break;
         };
-        return message;
+        return reason;
     }
 
     public enum ControlSignal {
