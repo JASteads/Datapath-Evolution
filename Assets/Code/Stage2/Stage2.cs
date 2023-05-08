@@ -7,7 +7,6 @@ public class Stage2 : Level
 {
     private List<Stage2Object> objects = new List<Stage2Object>();
     private Dictionary<ControlSignal, bool> expectedControlSignals = new Dictionary<ControlSignal, bool>(), currentControlSignals = new Dictionary<ControlSignal, bool>();
-    private bool validControlSignals = false;
 
     public Stage2(bool regDst, bool regWrite, bool pcSrc, bool aluSrc, bool memRead, bool memWrite, bool memToReg) : base("Stage 2") {
         expectedControlSignals.Add(ControlSignal.REG_DST, regDst);
@@ -17,27 +16,17 @@ public class Stage2 : Level
         expectedControlSignals.Add(ControlSignal.MEM_READ, memRead);
         expectedControlSignals.Add(ControlSignal.MEM_WRITE, memWrite);
         expectedControlSignals.Add(ControlSignal.MEM_TO_REG, memToReg);
-        //default all current to 0
+        // default all current to 0
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
             currentControlSignals.Add(signal, false);
         }
-        //introduction
+        // introduction
         CreateIntroductionBox("This level will ask you to choose valid control signals for a STORE operation. Upon chosing the correct signals, you will then be asked to complete the datapath for the operation.",
             CreateControlObjects);
     }
 
     public override bool CheckWinCondition() {
         return false;
-    }
-
-    public void CheckControlSignals() {
-        foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
-            if (currentControlSignals[signal] != expectedControlSignals[signal]) {
-                validControlSignals = false;
-                return;
-            }
-        }
-        validControlSignals = true;
     }
 
     public void AddLevelObject(Stage2Object levelObject) {
@@ -60,43 +49,42 @@ public class Stage2 : Level
     }
 
     private void CreateControlObjects() {
-        //control
+        // control
         GameObject controlObj = InterfaceTool.ImgSetup("Control Unit", levelObj.transform, out Image controlImg, SysManager.sprites[11], true);
         InterfaceTool.FormatRect(controlImg.rectTransform, new Vector2(300, 600), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, 0));
         SysManager.tooltip.AssignTooltip(controlObj.transform);
-        //signal toggles
+        // signal toggles
         int yOffset = 240;
         foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
             CreateControlToggle(signal, controlImg, yOffset);
             yOffset -= 80;
         }
-        //incorrect answers
+        // incorrect answers
         Text descriptions = InterfaceTool.CreateHeader("", controlObj.transform, new Vector2(300, 800), new Vector2(400, -700), 20);
         descriptions.alignment = TextAnchor.MiddleCenter;
-        //control signal check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", controlImg.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
-            CheckControlSignals();
-            if (validControlSignals) {
-                descriptions.text = "";
-                CreateWinScreen("To Phase 2", () => {
-                    ResetObjects();
-                    CreateDatapathObjects();
-                    SysManager.tooltip.SetActive(false);
-                });
+        // valid check
+        CreateCheckAnswerButton(() => {
+            foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
+                if (currentControlSignals[signal] != expectedControlSignals[signal]) {
+                    return false;
+                }
             }
-            else {
-                descriptions.text = "";
-                foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
-                    if (currentControlSignals[signal] != expectedControlSignals[signal]) {
-                        descriptions.text += "-" + GetIncorrectDescriptionMessage(signal) + "\n";
-                    }
+            return true;
+        }, () => {
+            descriptions.text = "";
+            CreateWinScreen("To Phase 2", () => {
+                ResetObjects();
+                CreateDatapathObjects();
+                SysManager.tooltip.SetActive(false);
+            });
+        }, () => {
+            descriptions.text = "";
+            foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
+                if (currentControlSignals[signal] != expectedControlSignals[signal]) {
+                    descriptions.text += "-" + GetIncorrectDescriptionMessage(signal) + "\n";
                 }
             }
         });
-        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
-        text.alignment = TextAnchor.MiddleCenter;
-        text.color = Color.black;
     }
 
     private GameObject CreateControlToggle(ControlSignal signal, Image controlImg, int yOffset) {
@@ -130,26 +118,21 @@ public class Stage2 : Level
         AddLevelObject(Stage2ObjectPresests.CreateRegisterFile(-50, 100, true, true, false, false, true, true));
         AddLevelObject(Stage2ObjectPresests.CreateALU(300, 100, true, true, true));
         AddLevelObject(Stage2ObjectPresests.CreateDataMemory(650, 100, true, true, false));
-
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
-            bool valid = true;
+        // valid check
+        CreateCheckAnswerButton(() => {
             foreach (Stage2Object obj in objects) {
                 foreach (Stage2ObjectNode node in obj.GetNodes()) {
                     if (node.GetCurrentState() != node.GetExpectedState()) {
-                        valid = false;
+                        return false;
                     }
                 }
             }
-            if (valid) {
-                CreateWinScreen("To Stage 3", () => {
-                    SysManager.SetLevel(SysManager.GetStage3());
-                });
-            }
+            return true;
+        }, () => {
+            CreateWinScreen("To Stage 3", () => {
+                SysManager.SetLevel(SysManager.GetStage3());
+            });
         });
-        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
-        text.alignment = TextAnchor.MiddleCenter;
-        text.color = Color.black;
     }
 
     private string GetIncorrectDescriptionMessage(ControlSignal signal) {

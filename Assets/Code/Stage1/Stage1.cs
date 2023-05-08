@@ -31,13 +31,13 @@ public class Stage1 : Level
         System.Random rand = new System.Random();
         List<DropLocation> dropLocations = new List<DropLocation>();
         int xPos = -500;
-        //slots
+        // slots
         for (int i = 0; i < 5; i++) {
             SlotObject obj = new SlotObject(levelObj, i, new Vector2((i * 250) + xPos, 100), dropLocations);
         }
-        //list
+        // list
         DropLocationList dropLocationList = new DropLocationList(dropLocations);
-        //draggables
+        // draggables
         List<string> names = new List<string>{"PC", "Instruction\nMemory", "Register\nFile", "ALU", "Data\nMemory"};
         List<string> persistentNames = new List<string>{"PC", "Instruction\nMemory", "Register\nFile", "ALU", "Data\nMemory"};
         while (names.Count > 0) {
@@ -47,25 +47,19 @@ public class Stage1 : Level
             names.RemoveAt(index);
             xPos += 250;
         }
-        //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
-            bool valid = true;
+        // valid check
+        CreateCheckAnswerButton(() => {
             foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
-                    valid = false;
-                    break;
+                    return false;
                 }
             }
-            if (valid) {
-                CreateWinScreen("To Stage 2", () => {
-                    SysManager.SetLevel(SysManager.GetStage2());
-                });
-            }
+            return true;
+        }, () => {
+            CreateWinScreen("To Stage 2", () => {
+                SysManager.SetLevel(SysManager.GetStage2());
+            });
         });
-        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
-        text.alignment = TextAnchor.MiddleCenter;
-        text.color = Color.black;
     }
 }
 

@@ -34,13 +34,13 @@ public class Stage3 : Level
         System.Random rand = new System.Random();
         List<DropLocation> dropLocations = new List<DropLocation>();
         int xPos = -375;
-        //slots
+        // slots
         for (int i = 0; i < 4; i++) {
             SlotObject obj = new SlotObject(levelObj, i, new Vector2((i * 250) + xPos, 100), dropLocations);
         }
-        //list
+        // list
         DropLocationList dropLocationList = new DropLocationList(dropLocations);
-        //draggables
+        // draggables
         List<string> names = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
         List<string> persistentNames = new List<string>{"IF/ID", "ID/EX", "EX/MEM", "MEM/WB"};
         while (names.Count > 0) {
@@ -50,30 +50,24 @@ public class Stage3 : Level
             names.RemoveAt(index);
             xPos += 250;
         }
-        //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
-            bool valid = true;
+        // valid check
+        CreateCheckAnswerButton(() => {
             foreach (DropLocation dropLocation in dropLocationList.dLocations) {
                 if (!dropLocation.IsCorrectState()) {
-                    valid = false;
-                    break;
+                    return false;
                 }
             }
-            if (valid) {
-                CreateWinScreen("To Phase 2", () => {
-                    ResetObjects();
-                    CreatePhase2Objects();
-                });
-            }
+            return true;
+        }, () => {
+            CreateWinScreen("To Phase 2", () => {
+                ResetObjects();
+                CreatePhase2Objects();
+            });
         });
-        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
-        text.alignment = TextAnchor.MiddleCenter;
-        text.color = Color.black;
     }
 
     private void CreatePhase2Objects() {
-        //diagram
+        // diagram
         diagram = levelObj.AddComponent<Diagram>();
         diagram.obj.transform.SetParent(levelObj.transform, false);
         diagram.obj.transform.localPosition = new Vector3(0, 70, 0);
@@ -81,24 +75,18 @@ public class Stage3 : Level
         diagram.slots[1] = new Slot(2);
         diagram.slots[2] = new Slot(3);
         diagram.slots[3] = new Slot(4);
-        //valid check
-        GameObject winCheckObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image winCheckImg, out Button button, SysManager.sprites[1], () => {
-            bool valid = true;
+        // valid check
+        CreateCheckAnswerButton(() => {
             foreach (Slot slot in diagram.slots) {
                 if (!slot.CheckPosition()) {
-                    valid = false;
-                    break;
+                    return false;
                 }
             }
-            if (valid) {
-                CreateWinScreen("Return to Title", () => {
-                    SysManager.SetLevel(null);
-                });
-            }
+            return true;
+        }, () => {
+            CreateWinScreen("Return to Title", () => {
+                SysManager.SetLevel(null);
+            });
         });
-        InterfaceTool.FormatRect(winCheckImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
-        Text text = InterfaceTool.CreateHeader("Check Answer", winCheckImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
-        text.alignment = TextAnchor.MiddleCenter;
-        text.color = Color.black;
     }
 }
