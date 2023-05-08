@@ -114,7 +114,6 @@ public class ConnectWire
         }   
         else
         {
-            Debug.Log("Connection made");
             src.SetCurrentState(true);
             dest.SetCurrentState(true);
         }
