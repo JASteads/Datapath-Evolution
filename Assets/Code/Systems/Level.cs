@@ -6,21 +6,17 @@ public abstract class Level
 {
     public static Vector2 DEF_VEC = new Vector2(0.5F, 0.5F);
 
-    readonly string name;
+    private readonly string name;
     protected GameObject levelObj;
 
     private bool frozen = false;
 
     public Level(string name) {
         this.name = name;
-        levelObj = new GameObject("Stage");
+        levelObj = new GameObject(name);
         levelObj.transform.SetParent(
             SysManager.canvas.transform, false);
         SysManager.tooltip.SetActive(false);
-    }
-
-    public string GetName() {
-        return name;
     }
 
     public bool IsFrozen() {
@@ -33,7 +29,7 @@ public abstract class Level
 
     protected void ResetObjects() {
         Destroy();
-        levelObj = new GameObject("Stage");
+        levelObj = new GameObject(name);
         levelObj.transform.SetParent(
             SysManager.canvas.transform, false);
     }
