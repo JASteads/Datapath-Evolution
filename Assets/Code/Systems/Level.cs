@@ -56,16 +56,13 @@ public abstract class Level
         okayText.color = Color.black;
     }
 
-    protected void CreateCheckAnswerButton(Func<bool> winCondition, Action runWhenCorrect, Action runWhenIncorrect) {
+    protected void CreateCheckAnswerButton(Func<bool> winCondition, Action runWhenCorrect, int yPos) {
         GameObject checkAnswerObj = InterfaceTool.ButtonSetup("Check Answer", levelObj.transform, out Image checkAnswerImg, out Button checkAnswerButton, SysManager.sprites[1], null);
-        InterfaceTool.FormatRect(checkAnswerImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, -400));
+        InterfaceTool.FormatRect(checkAnswerImg.rectTransform, new Vector2(180, 60), DEF_VEC, DEF_VEC, DEF_VEC, new Vector2(0, yPos));
         checkAnswerButton.onClick.AddListener(() => {
             if (winCondition.Invoke()) {
                 GameObject.Destroy(checkAnswerObj);
                 runWhenCorrect.Invoke();
-            }
-            else if (runWhenIncorrect != null) {
-                runWhenIncorrect.Invoke();
             }
         });
         Text text = InterfaceTool.CreateHeader("Check Answer", checkAnswerImg.transform, new Vector2(0, 20), new Vector2(0, -40), 16);
@@ -74,7 +71,7 @@ public abstract class Level
     }
 
     protected void CreateCheckAnswerButton(Func<bool> winCondition, Action runWhenCorrect) {
-        CreateCheckAnswerButton(winCondition, runWhenCorrect, null);
+        CreateCheckAnswerButton(winCondition, runWhenCorrect, -400);
     }
 
     protected void CreateWinScreen(string description, Action nextLevel) {

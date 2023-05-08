@@ -60,12 +60,15 @@ public class Stage2 : Level
         incorrectReasons.alignment = TextAnchor.MiddleCenter;
         // valid check
         CreateCheckAnswerButton(() => {
+            bool correct = true;
+            incorrectReasons.text = "";
             foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
                 if (currentControlSignals[signal] != expectedControlSignals[signal]) {
-                    return false;
+                    correct = false;
+                    incorrectReasons.text += "-" + GetIncorrectReason(signal) + "\n";
                 }
             }
-            return true;
+            return correct;
         }, () => {
             incorrectReasons.text = "";
             CreateWinScreen("To Phase 2", () => {
@@ -73,13 +76,6 @@ public class Stage2 : Level
                 CreateDatapathObjects();
                 SysManager.tooltip.SetActive(false);
             });
-        }, () => {
-            incorrectReasons.text = "";
-            foreach (ControlSignal signal in Enum.GetValues(typeof(ControlSignal))) {
-                if (currentControlSignals[signal] != expectedControlSignals[signal]) {
-                    incorrectReasons.text += "-" + GetIncorrectReason(signal) + "\n";
-                }
-            }
         });
     }
 

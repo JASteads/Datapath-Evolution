@@ -2,7 +2,7 @@
 {
     public readonly static int MAX_POS = 4;
     public readonly static int NO_MOVE = -1;
-    readonly int expectedPos;
+    public readonly int expectedPos;
     int curPos;
 
     public Slot(int _expectedPos)
