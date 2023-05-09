@@ -30,6 +30,7 @@ public class SysManager
         mainCam.tag = "MainCamera";
         mainCam.orthographic = true;
         mainCam.backgroundColor = new Color(0.2f, 0.2f, 0.5f);
+        mainCam.gameObject.AddComponent<AnimatedCamera>();
 
         canvasObj = InterfaceTool.CanvasSetup(
             "Main Canvas", null, out canvas);

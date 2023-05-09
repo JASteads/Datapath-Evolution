@@ -59,8 +59,11 @@
     <Compile Include="Assets\Code\Stage3\Diagram.cs" />
     <Compile Include="Assets\Code\Systems\DragNSnap\DropLocationList.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2.cs" />
+    <Compile Include="Assets\Code\Systems\Tooltips\TooltipLibrary.cs" />
     <Compile Include="Assets\Code\Systems\DragNSnap\DropLocation.cs" />
+    <Compile Include="Assets\Code\Systems\Tooltips\Tooltip.cs" />
     <Compile Include="Assets\Code\Systems\InterfaceTool.cs" />
+    <Compile Include="Assets\Code\Systems\AnimatedCamera.cs" />
     <Compile Include="Assets\Code\Stage2\ConnectWire.cs" />
     <Compile Include="Assets\Code\Systems\SysManager.cs" />
     <Compile Include="Assets\Code\Systems\Menus\MainMenu.cs" />
@@ -72,8 +75,6 @@
     <Compile Include="Assets\Code\Systems\Transient\DraggableObject.cs" />
     <Compile Include="Assets\Code\Stage2\Stage2ObjectNode.cs" />
     <Compile Include="Assets\Code\Stage3\Slot.cs" />
-    <Compile Include="Assets\Code\Systems\Tooltips\Tooltip.cs" />
-    <Compile Include="Assets\Code\Systems\Tooltips\TooltipLibrary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Code\Systems\DragNSnap\README.txt" />
