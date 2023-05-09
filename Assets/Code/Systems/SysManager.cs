@@ -32,11 +32,7 @@ public class SysManager
         mainCam.backgroundColor = new Color(0.2f, 0.2f, 0.5f);
         mainCam.gameObject.AddComponent<AnimatedCamera>();
 
-        canvasObj = InterfaceTool.CanvasSetup(
-            "Main Canvas", null, out canvas);
-        canvasObj.AddComponent<MainMenu>();
-        tooltip = new Tooltip(canvas.transform);
-        CreateQuitButton();
+        InitializeCanvas();
     }
 
     public static void Quit()
@@ -54,8 +50,8 @@ public class SysManager
         currentLevel = level;
         // go to main menu
         if (level == null) {
-            canvasObj.AddComponent<MainMenu>();
-            quitObj.SetActive(false);
+            GameObject.Destroy(canvasObj);
+            InitializeCanvas();
         }
     }
 
@@ -71,7 +67,15 @@ public class SysManager
         return new Stage3();
     }
 
-    static void CreateQuitButton()
+    private static void InitializeCanvas() {
+        canvasObj = InterfaceTool.CanvasSetup(
+            "Main Canvas", null, out canvas);
+        canvasObj.AddComponent<MainMenu>();
+        tooltip = new Tooltip(canvas.transform);
+        CreateQuitButton();
+    }
+
+    private static void CreateQuitButton()
     {
         quitObj = InterfaceTool.ButtonSetup("Quit", canvas.transform,
             out Image quitImg, out Button quitButton, null, () => {
